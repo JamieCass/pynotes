@@ -25,15 +25,20 @@ from selenium.webdriver.support import ui
 from selenium.webdriver.common.keys import Keys
 import lxml
 
-########### Files that are useful ############
+
+##################################################
+# Helpful files i have on my machine
+##################################################
+
 
 # HTML_Scraping_demo_jc.py (has a fair bit of info for bs4 and other bits and bobs)
 
 # pandas_test.py (has a lot of info on pandas)
 
-##############################
 
-# change jupyter theme
+##################################################
+# Jupyter notebook stuff
+##################################################
 
 jt -t 'theme' # run in terminal, then select a theme
 
@@ -54,7 +59,10 @@ browser.set_window_size(720,1160)
 # To preview a md file in atom.. ctrl, shift, m.
 
 
-##############################
+##################################################
+# Github help
+##################################################
+
 
 GITHUB (terminal)
 
@@ -65,9 +73,10 @@ pull, add, commit, push. (in order.. use status to see what the new things are y
 
 status ( shows the status of files that are new or have a chnage..)
 
-##############################
 
-# Date and time!!
+##################################################
+# Date and Time
+##################################################
 
 import time
 import datetime
@@ -75,6 +84,10 @@ datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d')
 
 
+
+##################################################
+# F1 tracker stuff im working through
+##################################################
 
 
 from pytrends.request import TrendReq
@@ -125,7 +138,7 @@ for trending in groupkeywords[0:2]:
 dicti[1]
 import pandas as pd
 
-result = pd.concat(dicti, axis=1)ß
+result = pd.concat(dicti, axis=1)
 
 overtime_result=pd.concat(dic_overtime, axis=1)
 
@@ -136,6 +149,7 @@ overtime_result[1]
 ##################################################
 # SHOWING JOINS
 ##################################################
+
 pytrend.build_payload(kw_list=driver_list[0:0+diff])
 df_interest_over_time_A = pytrend.interest_over_time().drop(['isPartial'],axis=1)
 df_interest_over_time_A.head()
@@ -148,3 +162,21 @@ df_joined = pd.merge(df_interest_over_time_A, df_interest_over_time_B, left_inde
 df_joined.head()
 # Check they are the same length
 len(df_interest_over_time_A), len(df_interest_over_time_B)
+
+
+##################################################
+# Changine stuff in lists
+##################################################
+
+
+eg_list = [2,4,3,3,2,5]
+# Remove something from its index
+.pop(1)
+# would remove the second index so eg_list would look like [2,3,3,2,5]
+
+# Remove the first instance of something
+.remove(3)
+# would remove the first 3 it came across, if there isnt a 3 and ERROR would pop up, so eg_list would look like [2,4,3,2,5]
+
+
+
