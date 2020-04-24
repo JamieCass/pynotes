@@ -168,6 +168,9 @@ len(df_interest_over_time_A), len(df_interest_over_time_B)
 # Changine stuff in lists
 ##################################################
 
+#####################
+# REMOVING
+#####################
 
 eg_list = [2,4,3,3,2,5]
 # Remove something from its index
@@ -178,5 +181,18 @@ eg_list = [2,4,3,3,2,5]
 .remove(3)
 # would remove the first 3 it came across, if there isnt a 3 and ERROR would pop up, so eg_list would look like [2,4,3,2,5]
 
+
+#####################
+# ADDING
+#####################
+
+instructors = []
+
+# To add one at a time
+instructors.append('Colt')
+instructors.append('Blue')
+
+# To add multiple
+instructors.extend(['Colt','Blue','Lisa'])
 
 
