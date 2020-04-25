@@ -195,4 +195,12 @@ instructors.append('Blue')
 # To add multiple
 instructors.extend(['Colt','Blue','Lisa'])
 
+#####################
+# NESTED LISTS
+#####################
 
+answer = [[num for num in range(0,3)] for val in range (0,3)]
+
+# Would look like
+
+[[0,1,2][0,1,2][0,1,2]]
