@@ -207,3 +207,24 @@ answer = [[num for num in range(0,3)] for val in range (0,3)]
 # Would look like
 
 [[0,1,2][0,1,2][0,1,2]]
+
+
+#####################
+# Only return True or things that have a value.
+#####################
+
+'''
+compact([0,1,2,"",[], False, {}, None, "All done"]) # [1,2, "All done"]
+'''
+
+def compact(stuff):
+    return [a for a in stuff if a]
+
+# Remember that 0, None or False have no value so wont show up as True.
+
+#####################
+# Return if value is in both lists.
+#####################
+
+def intersection(word1,word2):
+    return[val for val in word1 if val in word2]
