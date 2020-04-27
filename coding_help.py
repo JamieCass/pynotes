@@ -179,7 +179,7 @@ eg_list = [2,4,3,3,2,5]
 
 # Remove the first instance of something
 .remove(3)
-# would remove the first 3 it came across, if there isnt a 3 and ERROR would pop up, so eg_list would look like [2,4,3,2,5]
+# would remove the first no3 it came across, if there isnt a no3 and ERROR would pop up, so eg_list would look like [2,4,3,2,5]
 
 
 #####################
@@ -188,9 +188,12 @@ eg_list = [2,4,3,3,2,5]
 
 instructors = []
 
-# To add one at a time
+# To add one at a time (to the end of the list)
 instructors.append('Colt')
 instructors.append('Blue')
+
+# To add into the list wherever you choose. just add the index where you want it to go.
+instructors.insert(1,'Fred')
 
 # To add multiple
 instructors.extend(['Colt','Blue','Lisa'])
