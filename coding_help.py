@@ -35,6 +35,24 @@ import lxml
 
 # pandas_test.py (has a lot of info on pandas)
 
+# cmnd shift p shows all stuff you can do in sublime/vis studio
+
+
+
+##################################################
+# AWS stuff
+##################################################
+
+'''
+start with downloading your keys from AWS and save them in folder,(i use a keys folder).
+MAKE SURE you make permissions private using... chmod 600 (filename and destination if needed)
+-------------
+
+to connect to AWS..
+
+ssh -i (key file, and destination if you arent there already) -vv(prints out verbose's)
+ec2-user@(the public DNS info in your instance info)
+'''
 
 ##################################################
 # Jupyter notebook stuff
@@ -104,7 +122,7 @@ full_results_region = pd.DataFrame()
 counter = 0
 for i in range(iter):
     iter_drivers = driver_list[counter:counter+diff]
-    print('COMPLETE:',print(iter_drivers))
+    print('COMPLETE:',iter_drivers)
     counter+=diff
     pytrend.build_payload(kw_list=iter_drivers)
     df_region = pytrend.interest_by_region()
@@ -115,7 +133,7 @@ for i in range(iter):
     full_results_region['datetime'] = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d')
     print('full_results len',len(full_results_region))
     # CHECK
-    print('COMPLETE:',print(iter_drivers))
+    print('COMPLETE:',iter_drivers)
 
 
 
@@ -128,7 +146,7 @@ groupkeywords = [list(x) for x in groupkeywords]
 dicti = {}
 dic_overtime = {}
 i = 1
-for trending in groupkeywords[0:2]:
+for trending in groupkeywords:
 	pytrend.build_payload(kw_list=trending)
 	print(trending)
 	dicti[i] = pytrend.interest_by_region()
