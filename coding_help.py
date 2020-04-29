@@ -27,6 +27,23 @@ import lxml
 
 
 ##################################################
+# AWS stuff
+##################################################
+
+'''
+start with downloading your keys from AWS and save them in folder,(i use a keys folder).
+
+MAKE SURE you make permissions private using... chmod 600 (filename and destination if needed)
+
+-------------
+
+to connect to AWS..
+
+ssh -i (key file, and destination if you arent there already) -vv(prints out verbose's)
+ec2-user@(the public DNS info in your instance info)
+'''
+
+##################################################
 # Helpful files i have on my machine
 ##################################################
 
@@ -38,21 +55,6 @@ import lxml
 # cmnd shift p shows all stuff you can do in sublime/vis studio
 
 
-
-##################################################
-# AWS stuff
-##################################################
-
-'''
-start with downloading your keys from AWS and save them in folder,(i use a keys folder).
-MAKE SURE you make permissions private using... chmod 600 (filename and destination if needed)
--------------
-
-to connect to AWS..
-
-ssh -i (key file, and destination if you arent there already) -vv(prints out verbose's)
-ec2-user@(the public DNS info in your instance info)
-'''
 
 ##################################################
 # Jupyter notebook stuff
@@ -246,3 +248,79 @@ def compact(stuff):
 
 def intersection(word1,word2):
     return[val for val in word1 if val in word2]
+
+
+##################################################
+# Functions
+##################################################
+
+#####################
+# *args
+#####################
+
+#allows you to input as many arguments as you want into a function.
+
+def feed_me(*stuff):
+    for thing in stuff:
+        print(f"YUMMY I EAT {thing}")
+feed_me("apple", "tire", "shoe", "salmon")
+
+# This will print 'YUMMY I EAT apple'
+#                 'YUMMY I EAT tire' and so on...
+
+
+#####################
+# **kwargs
+#####################
+
+# Gathers remaining keyword arguments and puts them into a dict.
+
+def fav_colors(**kwargs):
+    for person, color in kwargs.items():
+        print(f"{person}'s favorite color is {color}")
+
+fav_colors(colt="purple", ruby="red", ethel="teal")
+fav_colors(colt="purple", ruby="red", ethel="teal", ted="blue")
+fav_colors(colt="royal deep amazing purple")
+
+# This will print 'colts favorite color is purple, rubys favorite color is red' and so on
+
+#####################
+# Parameter ordering
+#####################
+
+# 1. parameters   2.*args   3.default parameters   4.**kwargs
+
+def display_info(a, b, *args, instructor="Colt", **kwargs):
+  # return [a, b, args, instructor, kwargs]
+  print(type(args))
+
+print(display_info(1, 2, 3, last_name="Steele", job="Instructor"))
+
+# a - 1
+# b - 2
+# args (3)
+# instructor - "Colt"
+# kwargs - {'last_name': "Steele", "job": "Instructor"}
+
+# print would look like this [1, 2, (3,), 'Colt', {'last_name': 'Steele', 'job': 'Instructor'}]
+
+#####################
+# Unpacking
+#####################
+
+def sum_all_values(*args):
+    print(args)
+    total = 0
+    for num in args:
+        total += num
+    print(total)
+
+# sum_all_values(1,30,2,5,6)
+
+nums = [1,2,3,4,5,6]
+sum_all_values(*nums) 
+
+# use the '*' to unpack everything in a list/tuple like in nums.
+# it makes it into individual items.
+
