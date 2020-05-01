@@ -46,10 +46,10 @@ calculate(make_float=True, operation='divide', first=3.5, second=5) # "The resul
 '''
 
 def calculate(**kwargs):
-'''
-define a dictionary called operation_lookup  that maps a string like "add"
-to an actual mathematical operation involving the values of 'first' and 'second'
-'''
+    '''
+    define a dictionary called operation_lookup  that maps a string like "add"
+    to an actual mathematical operation involving the values of 'first' and 'second'
+    '''
     operation_lookup = {
         'add': kwargs.get('first', 0) + kwargs.get('second', 0),
         'subtract': kwargs.get('first', 0) - kwargs.get('second', 0),
@@ -62,24 +62,27 @@ to an actual mathematical operation involving the values of 'first' and 'second'
 
     is_float = kwargs.get('make_float', False)
 
-'''
-Then I lookup the correct value from the operation_lookup dict using the operation that was specified in kwargs
-Basically, turning something like "subtract" into: kwargs.get('first', 0) - kwargs.get('second', 0)
+    '''
+    Then I lookup the correct value from the operation_lookup dict using the operation that was specified in kwargs
+    Basically, turning something like "subtract" into: kwargs.get('first', 0) - kwargs.get('second', 0)
 
-I store the result in a variable called operation_value
+    I store the result in a variable called operation_value
 
-'''
+    '''
     operation_value = operation_lookup[kwargs.get('operation', '')]
 
-'''
-I return a string containing either the specified message or the default 'The result is' string.
+    '''
+    I return a string containing either the specified message or the default 'The result is' string.
 
-Whether operation_value  is interpolated as a float or int is determined by the is_float  variable.
+    Whether operation_value  is interpolated as a float or int is determined by the is_float  variable.
 
-'''
+    '''
 
     if is_float:
-        final = "{} {}".format(kwargs.get('message','The result is'), float(operation_value))
+        final = "{} {}".format(kwargs.get('message','The result is'), float(operation_value)) # make into a float
     else:
-        final = "{} {}".format(kwargs.get('message','The result is'), int(operation_value))
+        final = "{} {}".format(kwargs.get('message','The result is'), int(operation_value)) # make into an int
     return final
+
+calculate(operation = 'add', first=3, second=4 )
+calculate(make_float= True,first=5, operation='multiply', second=6)

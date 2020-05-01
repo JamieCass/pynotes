@@ -142,3 +142,65 @@ sum_all_values(*nums)
 #####################
 # Dictonary unpacking
 #####################
+
+# same as list unoacking but use (**)
+# e.g
+def display_names(first, second):
+    print(f"{first} says hello to {second}")
+
+names = {"first": "Colt", "second": "Rusty"}
+
+display_names(names) # nope..
+display_names(**names)  # yup!
+
+
+##################################################
+# Lambdas and built in Functions
+##################################################
+
+#####################
+#Lambdas (not used as much really)
+#####################
+
+# like a function but not name and has to be on one line.
+# useful for one time functions.
+###########################
+
+#e.g
+
+# A regular named function
+def square(num): return num * num
+
+# An equivalent lambda, saved to a variable
+square2 = lambda num: num * num
+
+# Another lambda
+add = lambda a,b: a + b
+
+###########################
+
+#e.g 2
+
+import tkinter as tk
+# DON'T WORRY ABOUT ANY OF THIS CODE
+root = tk.Tk()#=====================
+frame = tk.Frame(root)#=============
+frame.pack()#=======================
+# DON'T WORRY ABOUT ANY OF THIS CODE
+
+# Don't need this function if we use a lambda
+# def say_hi():
+#     print("HELLO!")
+
+button = tk.Button(frame,
+                   text="CLICK ME",
+                   fg="red",
+                   command=lambda: print("Hello"))
+                   # it was command=say_hi but say_hi isnt needed if we use lambda.
+
+
+
+# DON'T WORRY ABOUT ANY OF THIS CODE
+button.pack(side=tk.LEFT) #=========
+root.mainloop() #===================
+# DON'T WORRY ABOUT ANY OF THIS CODE
