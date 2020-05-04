@@ -204,3 +204,136 @@ button = tk.Button(frame,
 button.pack(side=tk.LEFT) #=========
 root.mainloop() #===================
 # DON'T WORRY ABOUT ANY OF THIS CODE
+
+
+
+#####################
+# Map 
+#####################
+
+#e.g
+nums = [2,4,6,8]
+
+# map alows you to go through a list 1 by one and do whatever your funcction or lambda wants.
+# so we want to double every number in nums... this is how we do it.
+doubles = list(map(lambda x: x*2, nums))
+
+# need to make the result a list.. otherwise you need to redo the lambda every time.
+
+#####################
+# e.g 2
+
+names = [
+    {'first': 'Rusty', 'last': 'Steele'},
+    {'first': 'Cole', 'last': 'Steele'},
+    {'first': 'Blue', 'last': 'Steele'}
+]
+
+# we want just the first names so we would do it like this..
+
+first_names = list(map(lambda x: x['first'], names))
+
+#####################
+# e.g 3
+
+# takes a list of numbers and takes away 1 from each one.
+def decrement_list(nums):
+    return list(map(lambda n: n-1,nums))
+
+
+
+
+#####################
+# Filter
+#####################
+
+# similar to map really.
+
+# e.g
+
+l = [1,2,3,4]
+
+# the filter is going to return any even numbers. (still have to use the list function to return a list)
+evens = list(filter(lambda x: x % 2 == 0, l))
+
+#####################
+# e.g 2
+names = ['austin','penny','anthony','angel','billy']
+
+# i want all names beginning with a using filter.
+
+a_names = list(filter(lambda n: n[0]=='a', names))
+
+#####################
+# e.g 3
+
+# map and filter together
+# i want to return a list with names that have less than 5 characters.
+
+names = ['Lassie', 'Colt', 'Rusty']
+
+list(map(lambda name: f"Your instructor is {name}",
+    filter(lambda value: len(value) < 5, names)))
+
+# the filter runs first, then only returns what name has less than 5 characters.
+
+#####################
+# e.g 4 with list comp examples as well.
+
+users = [
+    {"username": "samuel", "tweets": ["I love cake", "I love pie", "hello world!"]},
+    {"username": "katie", "tweets": ["I love my cat"]},
+    {"username": "jeff", "tweets": []},
+    {"username": "bob123", "tweets": []},
+    {"username": "doggo_luvr", "tweets": ["dogs are the best", "I'm hungry"]},
+    {"username": "guitar_gal", "tweets": []}
+]
+#extract inactive users using filter:
+inactive_users = list(filter(lambda u: not u['tweets'], users))
+
+#extract inactive users using list comprehension:
+inactive_users2= [user for user in users if not user["tweets"]]
+
+# extract usernames of inactive users w/ map and filter:
+usernames = list(map(lambda user: user["username"].upper(), 
+    filter(lambda u: not u['tweets'], users)))
+
+# extract usernames of inactive users w/ list comprehension
+usernames2 = [user["username"].upper() for user in users if not user["tweets"]]
+
+
+#####################
+# Any and all
+#####################
+
+##########
+# ALL every item in a list must be true.
+
+#e.g
+
+all([num for num in [2,4,6,10,14] if num % 2 == 0])
+
+# or 
+
+nums = [2,4,6,18,30]
+all([num % 2 == 0 for num in nums ])
+
+# this would only print True if ALL numbers where even!! 
+
+#########
+# ANY item in a list can be True.
+
+any([0,1,2,3]) # True
+
+any([val for val in [1,2,3] if val > 2]) # True
+
+any([val for val in [1,2,3] if val > 5]) # False
+
+any([num % 2 == 1 for num in nums]) # True
+
+
+
+
+
+
+
