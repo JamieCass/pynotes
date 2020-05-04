@@ -1,10 +1,10 @@
-##################################################
+#######################################################################
 # Changine stuff in lists
-##################################################
+#######################################################################
 
-#####################
+##########################################
 # REMOVING
-#####################
+##########################################
 
 eg_list = [2,4,3,3,2,5]
 # Remove something from its index
@@ -16,9 +16,9 @@ eg_list = [2,4,3,3,2,5]
 # would remove the first no3 it came across, if there isnt a no3 and ERROR would pop up, so eg_list would look like [2,4,3,2,5]
 
 
-#####################
+##########################################
 # ADDING
-#####################
+##########################################
 
 instructors = []
 
@@ -32,9 +32,9 @@ instructors.insert(1,'Fred')
 # To add multiple
 instructors.extend(['Colt','Blue','Lisa'])
 
-#####################
+##########################################
 # NESTED LISTS
-#####################
+##########################################
 
 answer = [[num for num in range(0,3)] for val in range (0,3)]
 
@@ -43,9 +43,9 @@ answer = [[num for num in range(0,3)] for val in range (0,3)]
 [[0,1,2][0,1,2][0,1,2]]
 
 
-#####################
+##########################################
 # Only return True or things that have a value.
-#####################
+##########################################
 
 '''
 compact([0,1,2,"",[], False, {}, None, "All done"]) # [1,2, "All done"]
@@ -56,21 +56,21 @@ def compact(stuff):
 
 # Remember that 0, None or False have no value so wont show up as True.
 
-#####################
+##########################################
 # Return if value is in both lists.
-#####################
+##########################################
 
 def intersection(word1,word2):
     return[val for val in word1 if val in word2]
 
 
-##################################################
+#######################################################################
 # Functions
-##################################################
+#######################################################################
 
-#####################
+##########################################
 # *args
-#####################
+##########################################
 
 #allows you to input as many arguments as you want into a function.
 
@@ -83,9 +83,9 @@ feed_me("apple", "tire", "shoe", "salmon")
 #                 'YUMMY I EAT tire' and so on...
 
 
-#####################
+##########################################
 # **kwargs
-#####################
+##########################################
 
 # Gathers remaining keyword arguments and puts them into a dict.
 
@@ -99,9 +99,9 @@ fav_colors(colt="royal deep amazing purple")
 
 # This will print 'colts favorite color is purple, rubys favorite color is red' and so on
 
-#####################
+##########################################
 # Parameter ordering
-#####################
+##########################################
 
 # 1. parameters   2.*args   3.default parameters   4.**kwargs
 
@@ -119,9 +119,9 @@ print(display_info(1, 2, 3, last_name="Steele", job="Instructor"))
 
 # print would look like this [1, 2, (3,), 'Colt', {'last_name': 'Steele', 'job': 'Instructor'}]
 
-#####################
+##########################################
 # Tuple/list unpacking
-#####################
+##########################################
 
 def sum_all_values(*args):
     print(args)
@@ -139,9 +139,9 @@ sum_all_values(*nums)
 # it makes it into individual items.
 
 
-#####################
+##########################################
 # Dictonary unpacking
-#####################
+##########################################
 
 # same as list unoacking but use (**)
 # e.g
@@ -154,13 +154,13 @@ display_names(names) # nope..
 display_names(**names)  # yup!
 
 
-##################################################
-# Lambdas and built in Functions
-##################################################
+#######################################################################
+# Lambdas and Built in Functions
+#######################################################################
 
-#####################
+##########################################
 #Lambdas (not used as much really)
-#####################
+##########################################
 
 # like a function but not name and has to be on one line.
 # useful for one time functions.
@@ -207,9 +207,9 @@ root.mainloop() #===================
 
 
 
-#####################
+##########################################
 # Map 
-#####################
+##########################################
 
 #e.g
 nums = [2,4,6,8]
@@ -220,7 +220,7 @@ doubles = list(map(lambda x: x*2, nums))
 
 # need to make the result a list.. otherwise you need to redo the lambda every time.
 
-#####################
+##########################################
 # e.g 2
 
 names = [
@@ -233,7 +233,7 @@ names = [
 
 first_names = list(map(lambda x: x['first'], names))
 
-#####################
+##########################################
 # e.g 3
 
 # takes a list of numbers and takes away 1 from each one.
@@ -243,9 +243,9 @@ def decrement_list(nums):
 
 
 
-#####################
+##########################################
 # Filter
-#####################
+##########################################
 
 # similar to map really.
 
@@ -256,7 +256,7 @@ l = [1,2,3,4]
 # the filter is going to return any even numbers. (still have to use the list function to return a list)
 evens = list(filter(lambda x: x % 2 == 0, l))
 
-#####################
+##########################################
 # e.g 2
 names = ['austin','penny','anthony','angel','billy']
 
@@ -264,7 +264,7 @@ names = ['austin','penny','anthony','angel','billy']
 
 a_names = list(filter(lambda n: n[0]=='a', names))
 
-#####################
+##########################################
 # e.g 3
 
 # map and filter together
@@ -277,7 +277,7 @@ list(map(lambda name: f"Your instructor is {name}",
 
 # the filter runs first, then only returns what name has less than 5 characters.
 
-#####################
+##########################################
 # e.g 4 with list comp examples as well.
 
 users = [
@@ -302,9 +302,9 @@ usernames = list(map(lambda user: user["username"].upper(),
 usernames2 = [user["username"].upper() for user in users if not user["tweets"]]
 
 
-#####################
+##########################################
 # Any and all
-#####################
+##########################################
 
 ##########
 # ALL every item in a list must be true.
@@ -320,7 +320,7 @@ all([num % 2 == 0 for num in nums ])
 
 # this would only print True if ALL numbers where even!! 
 
-#########
+##############################
 # ANY item in a list can be True.
 
 any([0,1,2,3]) # True
@@ -330,6 +330,155 @@ any([val for val in [1,2,3] if val > 2]) # True
 any([val for val in [1,2,3] if val > 5]) # False
 
 any([num % 2 == 1 for num in nums]) # True
+
+
+##########################################
+# Sorted
+##########################################
+
+# can use this to sort all numbers into order. can us a tuple or a list.
+# the .sort() wont take in a tuple, only a list.
+
+
+# e.g
+
+# sorted (works on anything that is iterable)
+nums = [2,5,1,6,]
+
+sorted(nums) # [1,2,5,6]
+
+# but it wont save it so if you print(nums) again it wont be in order.
+
+sorted(nums, reverse = True) #[6,5,2,1]
+
+
+#######################################
+
+#e.g 2
+
+users = [
+    {"username": "samuel", "tweets": ["I love cake", "I love pie", "hello world!"]},
+    {"username": "katie", "tweets": ["I love my cat"]},
+    {"username": "jeff", "tweets": [], "color": "purple"},
+    {"username": "bob123", "tweets": [], "num": 10, "color": "teal"},
+    {"username": "doggo_luvr", "tweets": ["dogs are the best", "I'm hungry"]},
+    {"username": "guitar_gal", "tweets": []}
+]
+
+# To sort users by their username
+sorted(users,key=lambda user: user['username'])
+
+# Finding our most active users...
+# Sort users by number of tweets, descending
+sorted(users,key=lambda user: len(user["tweets"]), reverse=True)
+
+# ANOTHER EXAMPLE DATA SET==================================
+songs = [
+    {"title": "happy birthday", "playcount": 1},
+    {"title": "Survive", "playcount": 6},
+    {"title": "YMCA", "playcount": 99},
+    {"title": "Toxic", "playcount": 31}
+]
+
+# To sort songs by playcount
+sorted(songs, key=lambda s: s['playcount'])
+
+
+##########################################
+# Min Max
+###########################################
+names = ['Jamie', 'Mum', 'Ollivander', 'Sophie']
+
+# if we want the min or max anf have the name printed with need to do this.
+
+max(names, key=lambda n: len(n))
+min(names, key=lambda n: len(n))
+
+# we need to have a key! cant just len becasue it will give us the number of characters.
+
+####################
+# e.g 2
+
+names = ['Arya', "Samson", "Dora", "Tim", "Ollivander"]
+
+# finds the minimum length of a name in names
+min(len(name) for name in names) # 3
+
+# find the longest name itself
+max(names, key=lambda n:len(n)) #Ollivander
+
+songs = [
+    {"title": "happy birthday", "playcount": 1},
+    {"title": "Survive", "playcount": 6},
+    {"title": "YMCA", "playcount": 99},
+    {"title": "Toxic", "playcount": 31}
+]
+
+# Finds the song with the lowerest playcount
+min(songs, key=lambda s: s['playcount']) #{"title": "happy birthday", "playcount": 1}
+
+# Finds the title of the most played song
+max(songs, key=lambda s: s['playcount'])['title'] #YMCA
+
+
+###########################################
+# Reversed
+###########################################
+
+# simialr to slicing if you dont interate over something.
+'hello'[::-1]# 'olleh'
+
+#e.g 
+
+reversed('hello')
+list(reversed('hello'))# ['o','l','l','e','h']
+''.join(list(reversed('hello')))# 'olleh'
+
+
+for x in reversed range(0,10):
+    print(x)
+# 9
+# 8
+# 7
+# 6
+# 5
+# 4
+# 3
+# 2
+# 1
+# 0
+
+
+###########################################
+# len .... EXTENDED
+###########################################
+
+class SpecialList:
+ 
+    def __init__(self, data):
+        self.__data = data
+ 
+    def __len__(self):  # JUST LOOK AT THIS LINE
+        return 50 # ive just told it that the len is 50 no matter how mnay items in the list!!
+
+
+l1 = SpecialList([1,40,30,100,30,1,2,3,4])
+l2 = SpecialList([1,3,4,5]) 
+
+print(len(l1)) #50
+print(len(l2)) #50
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
