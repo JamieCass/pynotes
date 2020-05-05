@@ -470,8 +470,28 @@ print(len(l2)) #50
 
 
 
+###########################################
+# abs()   sum()   round()
+###########################################
+
+# abs (stand for absolute value) 
+#so if its negative the abs would still be the same number.
+
+abs(-8) # 8
+abs(8) # 8
 
 
+#sum (takes an interable and an optional start)
+#returns sum of start and items of an iterable from left to right and returns the total
+
+sum([1,2,3]) # 6
+sum([1,2,3], 10) # 16... this will add everyhting to 10 (because we defined the start point)
+
+
+#round (return a rounded number to specified number of digits after decimal point)
+
+round(10.2) # 10
+round(10.234343, 2) #10.23 will round it to 2 decimal places.
 
 
 
