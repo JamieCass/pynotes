@@ -208,7 +208,7 @@ root.mainloop() #===================
 
 
 ##########################################
-# Map 
+# Map
 ##########################################
 
 #e.g
@@ -295,7 +295,7 @@ inactive_users = list(filter(lambda u: not u['tweets'], users))
 inactive_users2= [user for user in users if not user["tweets"]]
 
 # extract usernames of inactive users w/ map and filter:
-usernames = list(map(lambda user: user["username"].upper(), 
+usernames = list(map(lambda user: user["username"].upper(),
     filter(lambda u: not u['tweets'], users)))
 
 # extract usernames of inactive users w/ list comprehension
@@ -313,12 +313,12 @@ usernames2 = [user["username"].upper() for user in users if not user["tweets"]]
 
 all([num for num in [2,4,6,10,14] if num % 2 == 0])
 
-# or 
+# or
 
 nums = [2,4,6,18,30]
 all([num % 2 == 0 for num in nums ])
 
-# this would only print True if ALL numbers where even!! 
+# this would only print True if ALL numbers where even!!
 
 ##############################
 # ANY item in a list can be True.
@@ -428,7 +428,7 @@ max(songs, key=lambda s: s['playcount'])['title'] #YMCA
 # simialr to slicing if you dont interate over something.
 'hello'[::-1]# 'olleh'
 
-#e.g 
+#e.g
 
 reversed('hello')
 list(reversed('hello'))# ['o','l','l','e','h']
@@ -454,16 +454,16 @@ for x in reversed range(0,10):
 ###########################################
 
 class SpecialList:
- 
+
     def __init__(self, data):
         self.__data = data
- 
+
     def __len__(self):  # JUST LOOK AT THIS LINE
         return 50 # ive just told it that the len is 50 no matter how mnay items in the list!!
 
 
 l1 = SpecialList([1,40,30,100,30,1,2,3,4])
-l2 = SpecialList([1,3,4,5]) 
+l2 = SpecialList([1,3,4,5])
 
 print(len(l1)) #50
 print(len(l2)) #50
@@ -474,7 +474,7 @@ print(len(l2)) #50
 # abs()   sum()   round()
 ###########################################
 
-# abs (stand for absolute value) 
+# abs (stand for absolute value)
 #so if its negative the abs would still be the same number.
 
 abs(-8) # 8
@@ -494,15 +494,12 @@ round(10.2) # 10
 round(10.234343, 2) #10.23 will round it to 2 decimal places.
 
 
+# function to take dict or names and join first and second
+
+names = [{'first': 'Elie', 'last': 'Schoppik'}, {'first': 'Colt', 'last': 'Steele'}]
+
+def extract_fullNames(nam):
+    return list(map(lambda x: '{} {}' .format(x['first'], x['last']), nam))
 
 
-
-
-
-
-
-
-
-
-
-
+extract_fullNames(names)
