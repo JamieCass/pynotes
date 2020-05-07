@@ -104,6 +104,7 @@ colorize([], 'cyan')
 # colorize(34, "red")
 
 
+
 #######################################################################
 # Handling errors (try, except, else and finally)
 #######################################################################
@@ -111,6 +112,15 @@ colorize([], 'cyan')
 #Try and except allow the code to run past the first error and let you know where it is
 
 #not the best example but it still helps a little
+
+# THE BASIC SYNTAX:
+# try: (the code and see if there are errors)
+# except: (comes up with error if theres any found or any specific if you specified)
+# else: (will work whenever theres not an error)
+# finally: (runs no matter what)
+
+
+#######################
 
 try:
 	jamie
@@ -121,7 +131,10 @@ except:
 	print('PROBLEM HERE')
 print('after the try')
 
+
 #try and be as specific as you can when using try and except
+
+#######################
 
 try:
 	jamie
@@ -130,15 +143,7 @@ except NameError:
 	print('tried to use variable that wsnt declared')
 print('after the try')
 
-# THE BASIC SYNTAX:
-# try:
-# except:
-
-# try: 
-#     foobar
-# except:
-#     print("PROBLEM!")
-# print("after the try")
+#######################
 
 def get(d,key):
 	try:
@@ -150,9 +155,99 @@ d = {"name": "Ricky"}
 print(get(d, "city"))
 d["city"]
 
+#######################
+
+while True:
+	try:
+		num = int(input("please enter a number: "))
+	except ValueError:
+		print("That's not a number!")
+	else:
+		print("Good job, you entered a number!")
+		break
+	finally:
+		print("RUNS NO MATTER WHAT!")
+print("REST OF GAME LOGIC RUNS!")
+
+# try:
+# 	num = int(input("please enter a number: "))
+# except:
+# 	print("That's not a number!")
+# else:
+# 	print("I'M IN THE ELSE!")
+# finally:
+# 	print("RUNS NO MATTER WHAT!")
+
+#######################
+
+# def divide(a,b):
+# 	try:
+# 		result = a/b
+# 	except ZeroDivisionError:
+# 		print("don't divide by zero please!")
+# 	except TypeError as err:
+# 		print("a and b must be ints or floats")
+# 		print(err)
+# 	else:
+# 		print(f"{a} divided by {b} is {result}")
+
+def divide(a,b):
+	try:
+		result = a/b
+	except (ZeroDivisionError, TypeError) as err:
+		print("Something went wrong!")
+		print(err)
+	else:
+		print(f"{a} divided by {b} is {result}")
+
+
+print(divide(1,2))
+print(divide(1,'a'))
+print(divide(1,0))
 
 
 
+#######################################################################
+# Debugging with pdb
+#######################################################################
+
+#pdb (python debugger)
+
+#set breakpoints in code we use pdb
+#pauses your code and you can look into it all before going onto the next line/step
+
+# FIRST EXAMPLE:
+# import pdb
+# first = "First"
+# second = "Second"
+# pdb.set_trace()
+# result = first + second
+# third = "Third"
+# result += third
+# print(result)
 
 
+# Be careful with variable names! 
+#(c below for instance just continues the code from the break)
+
+def add_numbers(a, b, c, d):
+    import pdb; pdb.set_trace() 
+
+    return a + b + c + d
+add_numbers(1,2,3,4)
+
+# ===================
+# NOTES  NOTES  NOTES
+# ===================
+# import pdb
+# pdb.set_trace()
+
+# Also commonly on one line:
+# import pdb; pdb.set_trace()
+
+# Common PDB Commands:
+# l (list)
+# n (next line)
+# p (print)
+# c (continue - finishes debugging)
 
