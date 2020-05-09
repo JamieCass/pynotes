@@ -227,7 +227,7 @@ print(divide(1,0))
 # print(result)
 
 
-# Be careful with variable names! 
+# Be careful with variable names you dont want the variable to be the same as PDB commands! 
 #(c below for instance just continues the code from the break)
 
 def add_numbers(a, b, c, d):
