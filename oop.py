@@ -16,7 +16,7 @@
 #Class - blueprint for objects, can contain methods and attributes (similar to keys in a dict)
 #Instance - pbjects that are contructed from class blueprints that contain their class's methods and properties.
 
-#Wehn naming a class, everyone usually starts the name with a capital and end with a pass.
+#When naming a class, everyone usually starts the name with a capital and end with a pass.
 
 #e.g.
 class User:
@@ -30,6 +30,9 @@ class Vehicle:
 car = Vehicle()
 boat = Vehicle()
 
+
+
+
 ##########################################
 # Abstraction and Encapsulation
 ##########################################
@@ -41,22 +44,28 @@ boat = Vehicle()
 #The goal is to encapsulate your code into logical,heirarchical groupings using classes.
 #No need for it if theres not a lot of seperate class's
 
-#If you wanted to make a private class you usually put a '_' at the start.
+
+#If you wanted to make a private class you usually put an underscore '_' at the start.
+
 
 #For a poker game, we would break it down (encapsulate) into seperate classes:
 
+
 #Game, Player, Card, Deck, Hand, Chip, Bet.
 
+
 #Lets encapsulate the deck:
+
 
 #deck {class}
 
 # _class		{private list attruibute} (can stay inside the deck)
 #_max_cards		{private int attribute} (can stay inside the deck)
-#shuffle		{public method} ()
+#shuffle		{public method} 
 #deal_card		{public method}
 #deal_hand		{public method}
 #count 			{public method}
+
 
 #e.g
 
@@ -75,12 +84,16 @@ boat = Vehicle()
 
 #Everytime we make a class python we need to define the __init__ method unless there no data in the class (rare).
 
+
+
 #Always have to have self at the beginning of __init__. "def __init__(self):"
 
 #Self keyword refers to the current class instance.
 
 #Technically it doesnt have to be called self but its standard and its pretty much the only thing you will see.
 #self pretty much calls the instance. so below its just caling user then we define first and second and so on in brackets.
+
+
 
 # A User class with 3 attributes but no methods (aside from __init__)
 class User:
@@ -98,6 +111,8 @@ user2 = User("Blanca", "Lopez", 41)
 print(user1.first, user1.last, user1.age)
 print(user2.first, user2.last, user2.age)
 
+
+
 # e.g. 2 
 
 class Vehicle:
@@ -108,10 +123,13 @@ class Vehicle:
 		self.year = year
 
 #creating an object that is an instance of a class is called INSTANTIATING a class.
+
 # e.g. 
 
 v = Vehicle('Honda','Civic', 2017)
-# v becomes a Honda Civic, a new instance of Vehicle.
+
+
+# v becomes a Honda Civic, a new instance of Vehicle and would look something like this...
 
 # v
 # <__main__.Vehicle at 0x10472f5c0>
@@ -126,10 +144,43 @@ v = Vehicle('Honda','Civic', 2017)
 
 
 
+##########################################
+# Underscore: Dunder methods, Name Mangling and More!
+##########################################
+
+#The difference in the underscores and what theyre good for.
+
+#_name (a way to tell other coders that it should be a private function/class, method or so on)
+#__name (name mangling) (wont be able to access it outside!)
+#__name__ (dunder)..(only use these if you want to reference/override something already in python)
+
+#e.g.
+
+# _name
+# __name
+# __name__
 
 
+class Person:
+	# Init is a "dunder" method
+    def __init__(self):
+        self.name = "Tony"
+        # single underscore means "private" (sort of)
+        self._secret = "hi!"
+        # two leading underscores tells Python to "mangle" the name
+        self.__msg = "I like turtles!"
+        self.__lol = "HAHAHAHAH"
 
 
+p = Person()
+
+print(p.name)
+print(p._secret) #Anyone can still directly access the attribute
+
+print(dir(p)) # Notice what __msg and __lol have been "mangled" to
+
+print(p._Person__msg) #this is the only way t print the mangled text!
+print(p._Person__lol)
 
 
 

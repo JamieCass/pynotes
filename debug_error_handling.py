@@ -140,7 +140,7 @@ try:
 	jamie
 
 except NameError:
-	print('tried to use variable that wsnt declared')
+	print('tried to use variable that wasnt declared')
 print('after the try')
 
 #######################
