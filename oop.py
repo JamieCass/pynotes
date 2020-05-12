@@ -145,7 +145,7 @@ v = Vehicle('Honda','Civic', 2017)
 
 
 ##########################################
-# Underscore: Dunder methods, Name Mangling and More!
+# Underscore: Dunder methods, Name Mangling.
 ##########################################
 
 #The difference in the underscores and what theyre good for.
@@ -153,6 +153,8 @@ v = Vehicle('Honda','Civic', 2017)
 #_name (a way to tell other coders that it should be a private function/class, method or so on)
 #__name (name mangling) (wont be able to access it outside!)
 #__name__ (dunder)..(only use these if you want to reference/override something already in python)
+
+
 
 #e.g.
 
@@ -183,5 +185,10 @@ print(p._Person__msg) #this is the only way t print the mangled text!
 print(p._Person__lol)
 
 
+
+
+##########################################
+# Adding instance methods
+##########################################
 
 
