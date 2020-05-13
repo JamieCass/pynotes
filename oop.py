@@ -397,6 +397,176 @@ Chicken.total_eggs #3
 
 
 
+#################################################################
+#Difference between Class method and Class Attribute
+#################################################################
+
+## METHOD: A 'FUNCTION' stored in an instance or class (not used a lot) 
+
+## ATTRIBUTE: A 'VARIABLE' stores in an instance or a class
+
+
+# e.g (stackoverflow)
+
+a = 10                          # variable
+
+def f(b):                       # function  
+    return b ** 2
+
+class C:
+
+    c = 20                      # class attribute
+
+    def __init__(self, d):      # "dunder" method
+        self.d = d              # instance attribute
+
+    def show(self):             # instance method
+        print(self.c, self.d) 
+
+e = C(30)
+e.g = 40   
+
+
+
+
+
+##########################################
+#Class method (starts with '@classmethod')
+##########################################
+
+#Not commonly used.
+#Not really concerned with instances but the class itself.
+
+#e.g using the same Users info we did earlier
+
+# A User class with both instance attributes and instance methods
+class User:
+	active_users = 0
+
+	#Class method to print out how many active users there are.
+	@classmethod
+	def display_active_users(cls): #typical to use ('cls'), just like __init__ uses ('self')
+		return f"There are currently {cls.active_users} active users"
+
+	#More of a realistic class methoid and something more useful
+	@classmethod
+	def from_string(cls, data_str):
+		first,last,age = data_str.split(",") #telling us what each value is in the string then split it on the comma.
+		return cls(first, last, int(age))
+
+	def __init__(self, first, last, age):
+		self.first = first
+		self.last = last
+		self.age = age
+		User.active_users += 1
+
+	def logout(self):
+		User.active_users -= 1
+		return f"{self.first} has logged out"
+
+	def full_name(self):
+		return f"{self.first} {self.last}"
+
+	def initials(self):
+		return f"{self.first[0]}.{self.last[0]}."
+
+	def likes(self, thing):
+		return f"{self.first} likes {thing}"
+
+	def is_senior(self):
+		return self.age >= 65
+
+	def birthday(self):
+		self.age += 1
+		return f"Happy {self.age}th, {self.first}"
+
+
+
+# user1 = User("Joe", "Smith", 68)
+# user2 = User("Blanca", "Lopez", 41)
+# print(User.display_active_users()) #'There are currently 2 active users'
+# user1 = User("Joe", "Smith", 68)
+# user2 = User("Blanca", "Lopez", 41)
+# print(User.display_active_users()) #'There are currently 4 active users'
+
+
+#This is for the useful class method 
+
+tom = User.from_string("Tom,Jones,89") #Helpful for sorting csv data like this and adding a new user.
+print(tom.first) #Tom
+print(tom.full_name()) #Tom Jones
+print(tom.birthday()) #Happy 90th birthday
+
+
+
+
+##########################################
+#The __repr__ method
+##########################################
+
+#One of several ways to prvide a nicer string representation.
+
+
+class User:
+	active_users = 0
+
+	@classmethod
+	def display_active_users(cls):
+		return f"There are currently {cls.active_users} active users"
+
+	@classmethod
+	def from_string(cls, data_str):
+		first,last,age = data_str.split(",")
+		return cls(first, last, int(age))
+
+	def __init__(self, first, last, age):
+		self.first = first
+		self.last = last
+		self.age = age
+		User.active_users += 1
+
+	# NEW CODE
+	def __repr__(self):
+		return f"{self.first} is {self.age}"
+	# NEW CODE
+
+	#so if i now print a user it will tell you their age as well.
+
+
+	def logout(self):
+		User.active_users -= 1
+		return f"{self.first} has logged out"
+
+	def full_name(self):
+		return f"{self.first} {self.last}"
+
+	def initials(self):
+		return f"{self.first[0]}.{self.last[0]}."
+
+	def likes(self, thing):
+		return f"{self.first} likes {thing}"
+
+	def is_senior(self):
+		return self.age >= 65
+
+	def birthday(self):
+		self.age += 1
+		return f"Happy {self.age}th, {self.first}"
+
+
+tom = User.from_string("Tom,Jones,89")
+
+j = User("judy", "steele", 18)
+j = str(j)
+print(j)
+
+
+
+
+
+
+
+
 
 
 
