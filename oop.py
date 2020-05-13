@@ -100,7 +100,7 @@ class User:
 	def __init__(self, first, last, age):
 		self.first = first #this is setting the first name attribute to 'Joe' for ser 1 and 'blanca' for user 2.
 		self.last = last  #same as above but for the last name.
-		self.age = age  #again the same this as above.
+		self.age = age  #again the same thing as above.
 
 user1 = User("Joe","Smith", 68)
 user2 = User("Blanca", "Lopez", 41)
@@ -158,11 +158,6 @@ v = Vehicle('Honda','Civic', 2017)
 
 #e.g.
 
-# _name
-# __name
-# __name__
-
-
 class Person:
 	# Init is a "dunder" method
     def __init__(self):
@@ -190,5 +185,223 @@ print(p._Person__lol)
 ##########################################
 # Adding instance methods
 ##########################################
+
+#instance method is pretty much adding a funciton/method into your class, after youve done your __init__.
+#these are individual pretty much
+
+#A good example is below, with the full_name and initials functions. (always have self as first parameter)
+
+#To call the instances we just use .instance. again a good example is below.
+
+
+# A User class with both instance attributes and instance methods
+class User:
+	def __init__(self, first, last, age):
+		self.first = first
+		self.last = last
+		self.age = age
+
+	def full_name(self):
+		return f"{self.first} {self.last}"
+
+	def initials(self):
+		return f"{self.first[0]}.{self.last[0]}."
+
+	def likes(self, thing):
+		return f"{self.first} likes {thing}"
+
+	def is_senior(self):
+		return self.age >= 65
+
+	def birthday(self):
+		self.age += 1
+		return f"Happy {self.age}th, {self.first}"
+
+
+user1 = User("Joe", "Smith", 68)
+user2 = User("Blanca", "Lopez", 41)
+
+print(user1.likes("Ice Cream")) # 'Joe likes Ice Cream'
+print(user2.likes("Chips")) # 'Blanca likes Chips'
+
+print(user2.initials()) # 'J.S'
+print(user1.initials()) # 'B.L'
+
+print(user2.is_senior()) # False
+print(user1.age) #Print age before we update it
+print(user1.birthday()) #updates age wjile saying happy birthday
+print(user1.age) #Print new value of age
+
+
+#e.g of a bank account (basic of course)
+
+# Define Bank Account Below:
+class BankAccount:
+    def __init__(self, owner, balance = 0.0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, num):
+        self.balance += num
+        
+    def withdraw(self,num):
+        self.balance -= num
+
+jamie_acct = BankAccount('Jamie') #add an account for me..
+jamie_acct.owner #Jamie
+jamie_acct.balance #0.0
+jamie_acct.deposit(10) #10.0
+jamie_acct.withdraw(6) #4.0
+jamie_acct.balance #4.0
+
+
+#Or like this.. breaking it down a bit more
+
+class BankAccount:
+ 
+    def __init__(self, name):
+        self.owner = name
+        self.balance = 0.0
+ 
+    def getBalance(self):
+        return self.balance
+ 
+    def withdraw(self, amount):
+        self.balance -= amount
+        return self.balance
+ 
+    def deposit(self, amount):
+        self.balance += amount
+        return self.balance
+
+
+
+
+##########################################
+# Introducing class attributes
+##########################################
+
+#Usually write it at the top of the class and is only defined once.
+
+#Its good to keep track of things. like in the active users example.
+#Its also good for validations.
+
+#A class attribute is shared by all instances of a class and by the class itself.
+
+#e.g
+
+# A User class with both a class attribute
+class User:
+
+	active_users = 0 #we define what active users is.. 0
+
+	def __init__(self, first, last, age):
+		self.first = first
+		self.last = last
+		self.age = age
+		User.active_users += 1 #we add 1 every time __init__ is called (everytime someone logs on/or creates a user.)
+
+	def logout(self): #when we use the logout it will take 1 away from active users.
+		User.active_users -= 1 
+		return f"{self.first} has logged out"
+
+	def full_name(self):
+		return f"{self.first} {self.last}"
+
+	def initials(self):
+		return f"{self.first[0]}.{self.last[0]}."
+
+	def likes(self, thing):
+		return f"{self.first} likes {thing}"
+
+	def is_senior(self):
+		return self.age >= 65
+
+	def birthday(self):
+		self.age += 1
+		return f"Happy {self.age}th, {self.first}"
+
+
+# print(user1.likes("Ice Cream"))
+# print(user2.likes("Chips"))
+
+# print(user2.initials())
+# print(user1.initials())
+
+# print(user2.is_senior())
+# print(user1.age)
+# print(user1.birthday())
+# print(user1.age)
+# user1.say_hi()
+
+print(User.active_users) # 0
+user1 = User("Joe", "Smith", 68)
+user2 = User("Blanca", "Lopez", 41)
+print(User.active_users)# 2 (because we ran the user 1 and user 2 makine 2 active users)
+print(user2.logout()) # we will make thi user log out.
+print(User.active_users) # 1 
+
+
+
+# Another class with a class attribute, used for validation purposes
+class Pet:
+
+	#Its good to have this up here if you use it more than once.. weve used it in both functions.
+
+	allowed = ['cat', 'dog', 'fish', 'rat'] #we are setting what animals are allowed as pets
+
+	def __init__(self, name, species):
+		if species not in Pet.allowed: #if the species isnt in the allowed then it will print an Error message.
+			raise ValueError(f"You can't have a {species} pet!")
+		self.name = name
+		self.species = species
+
+	#This bit of code will stop people setting a species to anything not allwed in the 'allowed list'
+	def set_species(self,species):
+		if species not in Pet.allowed:
+			raise ValueError(f"You can't have a {species} pet!")
+		self.species = species
+
+cat = Pet("Blue", "cat")
+dog = Pet("Wyatt", "dog")
+
+
+
+#Chicken coop exercise
+
+class Chicken:
+
+    total_eggs = 0
+   
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+        self.eggs = 0
+    
+    def lay_egg(self):
+        self.eggs += 1
+        Chicken.total_eggs +=1
+        return self.eggs
+
+
+c1 = Chicken(name='Sophie', species='Patridge Silkie')
+c2 = Chicken(name='Jamie', species='Speckled Sussex')
+Chicken.total_eggs #0
+c1.lay_egg() #1
+Chicken.total_eggs #1
+c2.lay_egg()#1
+c2.lay_egg()#2
+Chicken.total_eggs #3
+
+
+
+
+
+
+
+
+
+
+
 
 
