@@ -33,7 +33,7 @@ class Deck:
         actual = min([count,num])
         if count == 0:
             raise ValueError('All cards have been dealt')
-        #now you define what cards is, which is what youre going to return
+        #now you define what cards is, which is what youre going to return once youve dealt the card.
         cards = self.cards[-actual:]
         #you need to make sure the self.cards is updated by taking away whatever cards you just dealt.
         self.cards = self.cards[:-actual]
@@ -70,6 +70,3 @@ d.deal_hand(2)
 d.count()
 #see if the shuffle works (it shouldnt because theres not a full deck)
 d.shuffle()
-
-d.cards
-d
