@@ -5,6 +5,6 @@ with open(fileName) as inputFile:
     inputFile.close()
 
 for i, line in enumerate(data):
-    searchPhrase1 = input("what phrase are you looking for?")
+    searchPhrase1 = "d = Deck()"
     if searchPhrase1 in line:
         return line
