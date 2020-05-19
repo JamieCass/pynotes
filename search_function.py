@@ -1,15 +1,3 @@
-# fileName = input("Paste file name here")
-#
-# with open(fileName) as inputFile:
-#     data = inputFile.readlines()
-#     inputFile.close()
-#
-# for i, line in enumerate(data):
-#     searchPhrase1 = "d = Deck()"
-#     if searchPhrase1 in line:
-#         return line
-
-
 def check(lookup):
     with open('cards.py') as f:
         datafile = f.readlines()
@@ -20,4 +8,4 @@ def check(lookup):
             return True
     return False  # Because you finished the search without finding
 
-check('cards')
+check('')

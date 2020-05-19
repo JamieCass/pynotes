@@ -82,7 +82,7 @@ class Deck:
         #just good practice, dont have to return self.
         return self
 
-d= Deck()
+d = Deck()
 d.shuffle()
 card = d.deal_card()
 print(card)
