@@ -8,13 +8,9 @@
 
 #a key feature in OOP, the ability to define a class which inherits from another class (a 'base' or 'parent' class)
 #admin and inherit from user..
-
-#how to tell python you want to inherit from one class to another
-#it works by passing an argument to the definition of a child class
+#how to tell python you want to inherit from one class to another, it works by passing an argument to the definition of a child class
 
 #e.g
-
-
 #base class
 class Animal:
 	def make_sound(self,sound):
@@ -45,7 +41,6 @@ print(isinstance(gandalf, Animal)) #True
 #pretty much just a more pythonic way to set certain and call certain things in python, best to look at example below.
 
 #e.g
-
 class Human:
 	def __init__(self, first, last, age):
 		self.first = first
@@ -55,18 +50,18 @@ class Human:
 		else:
 			self._age = 0
 
-	#NOT NEEDED IF WE MAKE PROPERTIES INSTEAD (MUCH NEATER)
-	######################
+	# NOT NEEDED IF WE MAKE PROPERTIES INSTEAD (MUCH NEATER)
+	# #####################
 	# def get_age(self):
 	# 	return self._age
-
+	#
 	# def set_age(self, new_age):
 	# 	#make sure that age is more than 0
 	# 	if new_age >= 0:
 	# 		self._age = new_age
 	# 	else:
 	# 		self._age = 0
-	#######################
+	# ######################
 
 	#decorator, set up the property age so we dont neew parethases.
 	@property #(getter) property
@@ -89,9 +84,7 @@ class Human:
 		return f'{self.first} {self.last}'
 
 
-# Its just a bit nice code that doing the whole def set_age thing.
-
-
+# Its just a bit nicer code than doing the whole def set_age thing.
 
 james = Human('James', 'Cork', 54)
 
@@ -109,7 +102,7 @@ print(james.full_name) #James Cork
 
 
 ##########################################
-# Super() intro
+# Super()
 ##########################################
 
 #super() refers to the BASE class info so you can use it in other classes. See below
@@ -154,19 +147,22 @@ print(blue.breed) #Pursian
 print(blue.toy) #Rat
 print(blue.play) #Blue likes to play with Rat
 
-#e.g good examply of how to inherit and use super()
 
+#e.g good example of how to inherit and use super()
 class User:
 
-	active_users = 0 #we define what active users is.. 0
+	#we define what active users is.. 0
+	active_users = 0
 
 	def __init__(self, first, last, age):
 		self.first = first
 		self.last = last
 		self.age = age
-		User.active_users += 1 #we add 1 every time __init__ is called (everytime someone logs on/or creates a user.)
+		#we add 1 every time __init__ is called (everytime someone logs on/or creates a user.)
+		User.active_users += 1
 
-	def logout(self): #when we use the logout it will take 1 away from active users.
+	#when we use the logout it will take 1 away from active users.
+	def logout(self):
 		User.active_users -= 1
 		return f"{self.first} has logged out"
 
@@ -187,7 +183,8 @@ class User:
 		return f"Happy {self.age}th, {self.first}"
 
 #make a moderator class, (someone who is above the average user).
-class Moderator(User): # so Moderator inhertics all Users methods.
+# so Moderator inherits all Users methods.
+class Moderator(User):
 
 	def__init__(self, first, last, age, community):
 		#pulling the info (first, last, age) from User class using super()
@@ -219,7 +216,7 @@ class NPC(Character):
     def speak(self):
         return {}.format(self)
 
-
+#You can also define what class to inherit from in the super() brackets.
 
 
 ##########################################
@@ -252,7 +249,7 @@ class A:
 class B(A):
 	def do_something(self):
 		print('Method defined in: B')
-		super().do_something()#This will rint out the C statement.
+		super().do_something()#This will print out the C statement.
 
 class C(A):
 	def do_something(self):
@@ -284,26 +281,165 @@ help(D) #looks like.
 #	Methods inherited from B:
 #------------------------------
 
-#define a chile class that uses MRO to inherit from Mother first then Father.
-
-
+#define a child class that uses MRO to inherit from Mother first then Father.
 class Mother:
     def __init__(self):
         self.eye_color = 'brown'
         self.hair_color = 'dark brown'
         self.hair_type = 'curly'
-    
+
 class Father:
     def __init__(self):
         self.eye_color = 'blue'
         self.hair_color = 'blond'
         self.hair_type = 'straight'
-        
-    
+
+
 class Child(Mother, Father):
     pass
 
 
+########################################
+#this is a bigger exapmlw. notice how penguin is both AMBULATORY and AQUATIC. so it inherits from both classes.
+class Ambulatory:
+  def __init__(self,name):
+    print("AMBULATORY INIT!")
+    self.name = name
+
+  def walk(self):
+    return f"{self.name} is walking"
+
+  def greet(self):
+    return f"I am {self.name} of the land!"
 
 
 
+class Penguin(Ambulatory, Aquatic):
+  def __init__(self,name):
+    print("PENGUIN INIT!")
+    super().__init__(name=name)
+    # Ambulatory.__init__(self,name=name)
+    # Aquatic.__init__(self, name=name)
+
+
+
+jaws = Aquatic("Jaws")
+lassie = Ambulatory("Lassie")
+captain_cook = Penguin("Captain Cook")
+
+print(captain_cook.swim())
+print(captain_cook.walk())
+print(captain_cook.greet())
+
+print(f"captain_cook is instance of Penguin: {isinstance(captain_cook, Penguin)}")
+print(f"captain_cook is instance of Aquatic: {isinstance(captain_cook, Aquatic)}")
+print(f"captain_cook is instance of Ambulatory: {isinstance(captain_cook, Ambulatory)}")
+
+# jaws.swim() # 'Jaws is swimming'
+# jaws.walk() # AttributeError: 'Aquatic' object has no attribute 'walk'
+# jaws.greet() # 'I am Jaws of the sea!'
+
+# lassie.swim() # AttributeError: 'Ambulatory' object has no attribute 'swim'
+# lassie.walk() # 'Lassie is walking'
+# lassie.greet() # 'I am Lassie of the land!'
+
+# captain_cook.swim() # 'Captain Cook is swimming'
+# captain_cook.walk() # 'Captain Cook is walking'
+# captain_cook.greet() # ??
+
+
+##########################################
+# Polymorphism
+##########################################
+
+#Poly(many) Morph(forms)
+#A key principle in OOP is the idea of Polymorphism -an object can take on 'many' 'forms'.
+
+#1. same class method works in a similar way for different classes, (same method name but behanving in different ways) like below eg.
+#e.g of how same class method works in a different way. They all have a speak method but the print is different.
+Cat.speak() # meow
+Dog.speak() # woof
+Human.speak() # hello
+
+########################################
+#2. same operation works for different kinds of objects.
+#e.g of how len() works for a list, tuple and a string.
+sample_list = [1,2,3]
+sampel_tuple = (1,2,3)
+sample_string = 'awesome'
+
+len(sample_list) # 3
+len(sampel_tuple) # 3
+len(sample_string) # 7
+
+########################################
+# this is an example of how each class inherits from Animal and has to return a speak method otherwise you get an Error.
+class Animal():
+	def speak(self):
+		raise NotImplementedError('Sublass needs to implement this method')
+
+class Dog(Animal):
+	def(self):
+		return 'woof'
+
+class Cat(Animal):
+	def(self):
+		return 'meow'
+
+#this one wont work becase we havent returned a speak method.
+class Fish(Animal):
+	pass
+
+
+########################################
+class Aquatic:
+  def __init__(self,name):
+    print("AQUATIC INIT!")
+    self.name = name
+
+  def swim(self):
+    return f"{self.name} is swimming"
+
+  def greet(self):
+    return f"I am {self.name} of the sea!"
+
+
+##########################################
+# Special __magic__ methods
+##########################################
+
+#Magic methods are basically Dunder methods.
+#good eg of this is the + operator.. behing the scenes its a special method called __add__()
+8 + 2 # 10 --- if the first operand is a instance of int, __add__() does mathematical addition
+'8' + '2' # 82 --- if its a string the __add__() does string concatenation
+
+# little example of how we can make our own version of __len__ to return the height of a human.
+class Human:
+	def __init__(self, height):
+		self.height = height # in inches
+
+	def __len__(self):
+		return self.height
+Jamie = Human(73)
+len(Jamie) # 73
+
+##########################################
+#here's anther example of using the special methods in a better Human class
+class Human:
+	def __init__(self, first, last, age):
+		self.first = first
+		self.last = last
+		self.age = age
+
+	def __repr__(self):
+		return f'Human named: {self.first} {self.last}'
+
+	def __len__(self):
+		return self.age
+
+	#Make a baby??!!
+	def __add__(self):
+
+
+
+j = Human('Jenny', 'Furgo', 45)
