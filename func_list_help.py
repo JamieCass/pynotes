@@ -47,9 +47,8 @@ answer = [[num for num in range(0,3)] for val in range (0,3)]
 # Only return True or things that have a value.
 ##########################################
 
-'''
 compact([0,1,2,"",[], False, {}, None, "All done"]) # [1,2, "All done"]
-'''
+
 
 def compact(stuff):
     return [a for a in stuff if a]
@@ -545,7 +544,3 @@ avg_grades = dict(
         )
     )
 )
-
-
-
-

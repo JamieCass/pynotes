@@ -403,7 +403,8 @@ class Aquatic:
   def greet(self):
     return f"I am {self.name} of the sea!"
 
-
+a = Aquatic('Jamie')
+a.swim()
 ##########################################
 # Special __magic__ methods
 ##########################################
@@ -425,6 +426,7 @@ len(Jamie) # 73
 
 ##########################################
 #here's anther example of using the special methods in a better Human class
+from copy import copy
 class Human:
 	def __init__(self, first, last, age):
 		self.first = first
@@ -437,9 +439,23 @@ class Human:
 	def __len__(self):
 		return self.age
 
-	#Make a baby??!!
-	def __add__(self):
+	#Make a baby??!! by using the __add__ so wehn we do human '+' human,  neworn will be made.
+	def __add__(self, other):
+		#do a little check to make sure that other is Human.
+		if isinstance(other, Human):
+			return Human(first = 'Newborn', last = self.last, age = 0)
+		return 'You cant add that!'
 
+	def __mul__(self, other):
+		#multiply Human by the int, so we get a copy of that human.
+		if isinstance(other, int):
+			#we use the copy function, this will return a copy of the human we input.
+			return [copy(self) for i in range (other)]
+		return 'CANT MULTIPLY'
 
 
 j = Human('Jenny', 'Furgo', 45)
+k = Human('George', 'Hassy', 44)
+j+k # this is using the __add__ method we made in the Human class.
+j*3 # this will create a copy of the human j by using the __mul__ method we made in the Human class.
+(k+j) * 3 # we can also multiply babies by adding k and j then multiplying it by whatever int we want.
