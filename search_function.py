@@ -27,7 +27,7 @@ datafile
 lines_lookup = [x for x in datafile if 'groupkeywords' in x.split()]
 
 test_word = lines_lookup[0]
-
+datafile.index(test_word)
 
 test_loc = datafile.index(test_word)
 test_loc

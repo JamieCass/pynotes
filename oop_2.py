@@ -459,3 +459,29 @@ k = Human('George', 'Hassy', 44)
 j+k # this is using the __add__ method we made in the Human class.
 j*3 # this will create a copy of the human j by using the __mul__ method we made in the Human class.
 (k+j) * 3 # we can also multiply babies by adding k and j then multiplying it by whatever int we want.
+
+##########################################
+#GrumpyDict exercise
+#we inherit from the dict class already made by python.
+class GrumpyDict(dict):
+	def __repr__(self):
+		#print this
+		print('None of your business')
+		#this will return whatever is in the GrumpyDict class repr (which is standard for what the python class will show.)
+		return super().__repr__()
+	#this will come up when the GrumpyDict is missing a key.
+	def __missing__(self, key):
+		print(f'You want {key}? WELL IT AINT HERE')
+	#we use this if we want to add a key and value to a dict
+	def __setitem__(self, key, value):
+		print('Yo want to change the dictionary?')
+		print('OK FINE...')
+		#we need this to make the change actually happen. calling from the python function setitem
+		super().__setitem__(key, value)
+
+data = GrumpyDict({'First': 'Tom', 'Animal':'Dog'})
+#this will bring up the message that there isnt a key called city in the dict we are looking in.
+data['city']
+#so if we want to add a city then we can do it now, because we made the __setitem__ function.
+data['city'] = 'London'
+data
