@@ -56,3 +56,9 @@ dict1 = {'bookA': 1, 'bookB': 2, 'bookC': 3}
 dict2 = {'bookC': 2, 'bookD': 4, 'bookE': 5}
 dict2.update(dict1)
 dict2
+
+############################
+# reload in Python3
+############################
+import importlib
+importlib.reload(module)
