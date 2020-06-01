@@ -26,3 +26,18 @@ str_to_lookup = 'def'
 #make sure what we are searching for is a seperate word/string.. using the .split()
 word_lookup = [x for x in datafile if str_to_lookup in x.split()]
 word_lookup
+
+l = word_lookup[0]
+l
+
+line_to_start = datafile.index(l)
+line_to_start
+
+end_line = [x for x in datafile if 'return' in x.split()]
+end_line
+
+e = end_line[0]
+
+line_to_end = datafile.index(e)
+line_to_end
+datafile[line_to_start:line_to_end+1]
