@@ -41,3 +41,16 @@ e = end_line[0]
 line_to_end = datafile.index(e)
 line_to_end
 datafile[line_to_start:line_to_end+1]
+
+
+for l in word_lookup:
+    line_to_start = datafile.index(l)
+
+    for line in datafile[line_to_start:]:
+        if 'return' in line:
+            line_to_end = datafile.index(line)
+
+    end_up = datafile[line_to_start:line_to_end+1]
+    print(''.join(end_up))
+
+end_up

@@ -484,4 +484,4 @@ data = GrumpyDict({'First': 'Tom', 'Animal':'Dog'})
 data['city']
 #so if we want to add a city then we can do it now, because we made the __setitem__ function.
 data['city'] = 'London'
-data
+data['Animal']
