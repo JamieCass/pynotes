@@ -179,3 +179,91 @@ next(gen) #no
 next(gen) #yes
 next(gen) #no ..... and so on blah blah
 next(gen)
+
+
+##########################################
+# Making a beat Generator
+##########################################
+# Lame function that returns a list of beats.
+# Only runs 100 times
+def current_beat():
+	max = 100
+	nums = (1,2,3,4)
+	i = 0
+	result = []
+	while len(result) < max:
+		if i >= len(nums): i = 0
+		result.append(nums[i])
+		i += 1
+	return result
+
+# Infinite Generator - returns one beat a time, no list used!
+def current_beat():
+	nums = (1,2,3,4)
+	i = 0
+	while True:
+		if i >= len(nums): i = 0
+		yield nums[i]
+		i += 1
+
+##########################################
+#function that takes a count of a drink and returns a generator with verses from a song
+
+'''
+kombucha_song = make_song(5, "kombucha")
+next(kombucha_song) # '5 bottles of kombucha on the wall.'
+next(kombucha_song) # '4 bottles of kombucha on the wall.'
+next(kombucha_song) # '3 bottles of kombucha on the wall.'
+next(kombucha_song) # '2 bottles of kombucha on the wall.'
+next(kombucha_song) # 'Only 1 bottle of kombucha left!'
+next(kombucha_song) # 'No more kombucha!'
+next(kombucha_song) # StopIteration
+
+default_song = make_song()
+next(default_song) # '99 bottles of soda on the wall.'
+'''
+
+
+def make_song(verses = 99, drink = 'soda'):
+	for num in range(verses, -1, -1):
+		if num > 1:
+			yield '{} bottles of {} on the wall.'.format(num, drink)
+		elif num == 1:
+			yield 'Only 1 bottle of {} left!'.format(drink)
+		else:
+			yield 'No more {}!'.format(drink)
+
+song = make_song(8, 'Morgans spiced')
+next(song)
+next(song)
+
+##########################################
+#Texting memory usage with Genertaors
+##########################################
+# WITHOUT A GENERATOR....
+# To generate first 1,000,000 fib numbers, it has to store all of them in a list
+def fib_list(max):
+     nums = []
+     a, b = 0, 1
+     while len(nums) < max:
+         nums.append(b)
+         a, b = b, a+b
+     return nums
+
+fib_list(10)
+
+
+# USING A GENERATOR...
+# To generate first 1,000,000 fib numbers,no list needed!
+def fib_gen(max):
+    x = 0
+    y = 1
+    count = 0
+    while count < max:
+        x, y = y, x + y
+        yield x
+        count+=1
+
+
+for n in fib_gen(10):
+	print(n)

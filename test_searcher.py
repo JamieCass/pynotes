@@ -15,7 +15,7 @@ def check(file):
 
 #define datafile as the file we want to open.
 datafile = check(file = '/Users/jamie/Coding/pynotes/numpy_utils.py')
-datafile
+print(''.join(datafile))
 
 
 #define the work we want to look up.
@@ -42,15 +42,19 @@ line_to_end = datafile.index(e)
 line_to_end
 datafile[line_to_start:line_to_end+1]
 
-
+l
 for l in word_lookup:
     line_to_start = datafile.index(l)
-
+    print(line_to_start)
+    counter = 0
     for line in datafile[line_to_start:]:
-        if 'return' in line:
-            line_to_end = datafile.index(line)
+        if counter < 1:
+            if e in line:
+                line_to_end = datafile.index(e)
+                print(line_to_end)
 
     end_up = datafile[line_to_start:line_to_end+1]
-    print(''.join(end_up))
 
 end_up
+import cProfile
+cProfile.run('2+2')
