@@ -249,7 +249,7 @@ def fib_list(max):
          nums.append(b)
          a, b = b, a+b
      return nums
-
+#this will give you the firt 10 fib numbers.
 fib_list(10)
 
 
@@ -264,9 +264,51 @@ def fib_gen(max):
         yield x
         count+=1
 
-
+#this will give you the numbers using a lot less memory, (where its a generator)
 for n in fib_gen(10):
 	print(n)
+
+##########################################
+#function that accepts a number and a count and returns a generator that yilds the first count multiples of the number.
+def get_multiples(num=1, count=10):
+	counter = num
+	while count > 0:
+		yield counter
+		count -= 1
+		counter += num
+evens = get_multiples(2,3)
+next(evens)
+
+##########################################
+#function that accepts a number and returns a generator that will yeild an unlimited number of multiples of that number.
+'''
+E.G
+sevens = get_unlimited_multiples(7)
+[next(sevens) for i in range(15)]
+# [7, 14, 21, 28, 35, 42, 49, 56, 63, 70, 77, 84, 91, 98, 105]
+
+ones = get_unlimited_multiples()
+[next(ones) for i in range(20)]
+# [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+'''
+
+def get_unlimited_multiples(num = 1):
+	new_num = num
+	count = 1
+	while count > 0:
+		yield new_num
+		count += 1
+		new_num += num
+	#could of done it with a true statement
+	###################
+	# new_num = num
+	# while True:
+	# 	yield new_num
+	# 	new_num += num
+
+ones = get_unlimited_multiples()
+[next(ones) for i in range(20)]
+
 
 ##########################################
 #Testing speed
@@ -276,15 +318,16 @@ import time
 
 # SUMMING 10,000,000 Digits With Generator Expression
 gen_start_time = time.time() # save start time
-print(sum(n for n in range(100000000)))
+print(sum(n for n in range(1000000)))
 gen_time = time.time() - gen_start_time # end time - start time
 
 
 # SUMMING 10,000,000 Digits With List Comprehension
 list_start_time = time.time()
-print(sum([n for n in range(100000000)]))
+print(sum([n for n in range(1000000)]))
 list_time = time.time() - list_start_time
 
-
+#you can see the generator took a lot less time to do the sum!
 print(f"sum(n for n in range(10000000)) took: {gen_time}")
+#the list Comprehension took a lot longer, because it has to go through th list adding them all up.
 print(f"sum([n for n in range(10000000)]) took: {list_time}")
