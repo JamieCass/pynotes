@@ -56,10 +56,14 @@ def be_polite(fn):
         fn()
         print('Have a great day!')
     return wrapper
+
 #we are decorating our function with politeness!
 #we are 'wrapping' the above funciton in with the function below!
 # def greet():
 #     print('My name is Jamie.')
+#this means we dont need to set what greet is!
+#greet = be_polite(greet)
+
 ####-------------------------------NEW CODE----------------------------------------------####
 #we can use a decorator to do the same thing as above!!.
 @ be_polite
@@ -68,14 +72,12 @@ def greet():
 @be_polite
 def rage():
     print('I hate you!!')
-#this means we dont need to set what greet is!
-#greet = be_polite(greet)
-####-------------------------------------------------------------------------------------####
 
-#because we added thenew code.. we can just call greet sratight away.. (without having to set greet)
+#because we added the new code.. we can just call greet sratight away.. (without having to set greet)
 greet()
 rage()
 
+####-------------------------------------------------------------------------------------####
 
 ##########################################
 #Functions with different signatures
@@ -130,7 +132,7 @@ order('Steak', 'Fries')
 from functools import wraps
 def log_function_data(fn):
     ####--------------------------------NEW CODE---------------------------------------------####
-    @wraps(fn) #this will let us keep the doc for add and also be able to call help on it as well.
+    @wraps(fn) #this will let us keep the '__doc__' for add and also be able to call 'help()'' on it as well.
     ####-------------------------------------------------------------------------------------####
     def wrapper(*args, **kwargs):
         '''I AM A WRAPPER FUNCTION'''
@@ -145,7 +147,7 @@ def add(x,y):
     return x+y
 add(3,4)
 
-add.__doc__ #now this will work and come up with 'Adds two numbers together'
+add.__doc__ #now this will work and come up with 'Adds two numbers together' not the wrapper doc.
 #########################################
 #notice how we have the @wraps
 from functools import wraps
@@ -170,7 +172,7 @@ def speed_test(fn):
 		start_time = time()
 		result = fn(*args, **kwargs)
 		end_time = time()
-		print(f"Executing {fn.__name__}")
+		print(f"Executing {fn.__name__}") #with 'wraps' we can access the name of what function we are using and it wont come up with 'speed_test'
 		print(f"Time Elapsed: {end_time - start_time}")
 		return result
 	return wrapper
@@ -188,14 +190,14 @@ print(sum_nums_gen())
 print(sum_nums_list())
 
 ##########################################
-#no kwargs function (notes to come later)
+#no kwargs function
 from functools import wraps
 
 def ensure_no_kwargs(fn):
 	@wraps(fn)
 	def wrapper(*args, **kwargs):
 		if kwargs:
-			raise ValueError("No kwargs allowed! sorry :(")
+			raise ValueError("No kwargs allowed! sorry :(") #will error if any **kwargs are set
 		return fn(*args, **kwargs)
 	return wrapper
 
@@ -203,4 +205,5 @@ def ensure_no_kwargs(fn):
 def greet(name):
 	print(f"hi there {name}")
 
-greet(name="Tony")
+greet(name="Tony")#this wont work because we have set a **kwargs by settin the name to Tony
+greet('Tony') #this works because we have just called greet with Tony in the brackets, not setting a **kwargs
