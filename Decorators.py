@@ -133,7 +133,8 @@ from functools import wraps
 def log_function_data(fn):
     ####--------------------------------NEW CODE---------------------------------------------####
     @wraps(fn) #this will let us keep the '__doc__' for add and also be able to call 'help()'' on it as well.
-    ####-------------------------------------------------------------------------------------####
+    ####--------------------------------NEW CODE---------------------------------------------####
+
     def wrapper(*args, **kwargs):
         '''I AM A WRAPPER FUNCTION'''
         print(f'You are about to call {fn.__name__}')
@@ -207,3 +208,72 @@ def greet(name):
 
 greet(name="Tony")#this wont work because we have set a **kwargs by settin the name to Tony
 greet('Tony') #this works because we have just called greet with Tony in the brackets, not setting a **kwargs
+
+##########################################
+#Write a function called show_args that accepts a function and returns another function.
+#before invoking the function passed on it, show_args should be responsible for printing 2 things:
+#a tuple of the positional arguments and a dictionary of the keyword arguments.
+
+'''
+@show_args
+def do_nothing(*args, **kwargs):
+    pass
+
+do_nothing(1, 2, 3,a="hi",b="bye")
+
+# Should print (on two lines):
+# Here are the args: (1, 2, 3)
+# Here are the kwargs: {"a": "hi", "b": "bye"}
+'''
+
+from functools import wraps
+
+
+def show_args(fn):
+    @wraps(fn)
+    def wrapper(*args,**kwargs):
+        if args and kwargs:  #this will only work if we have args AND kwargs.. the below code will work better.
+            return f'Here are the args: {args}\nHere are the kwargs: {kwargs}'
+    return wrapper
+@show_args
+def do_nothing(*args, **kwargs):
+    pass
+
+print(do_nothing(1,2,3, a='hi', b='bye'))
+
+###--------------------------could of done it like this-----------------------------------####
+# def show_args(fn):
+#     @wraps(fn)
+#     def wrapper(*args, **kwargs):
+#         print("Here are the args:", args)
+#         print("Here are the kwargs:", kwargs)
+#         return fn(*args, **kwargs)
+#     return wrapper
+####--------------------------------------------------------------------------------------####
+
+##########################################
+#Write a function called double_return that accepts a function and returns another function.
+#double_return should decorate a function by returning two copies of the inner functions return value inside of a list.
+'''
+@double_return
+def add(x, y):
+    return x + y
+
+add(1, 2) # [3, 3]
+
+@double_return
+def greet(name):
+    return "Hi, I'm " + name
+
+greet("Colt") # ["Hi, I'm Colt", "Hi, I'm Colt"]
+'''
+
+def double_return(fn):
+    def wrapper(*args, **kwargs):
+        return fn
+    return wrapper
+@double_return
+def greet(name):
+    return "Hi, I'm" + name
+
+greet('Colt')

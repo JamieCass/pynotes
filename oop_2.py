@@ -300,7 +300,7 @@ class Child(Mother, Father):
 
 
 ########################################
-#this is a bigger exapmlw. notice how penguin is both AMBULATORY and AQUATIC. so it inherits from both classes.
+#this is a bigger exapmle. notice how penguin is both AMBULATORY and AQUATIC. so it inherits from both classes.
 class Ambulatory:
   def __init__(self,name):
     print("AMBULATORY INIT!")
@@ -312,7 +312,16 @@ class Ambulatory:
   def greet(self):
     return f"I am {self.name} of the land!"
 
+class Aquatic:
+  def __init__(self,name):
+    print("AQUATIC INIT!")
+    self.name = name
 
+  def swim(self):
+    return f"{self.name} is swimming"
+
+  def greet(self):
+  	return f'I am {self.name} of the sea!'
 
 class Penguin(Ambulatory, Aquatic):
   def __init__(self,name):
@@ -439,7 +448,7 @@ class Human:
 	def __len__(self):
 		return self.age
 
-	#Make a baby??!! by using the __add__ so wehn we do human '+' human,  neworn will be made.
+	#Make a baby??!! by using the __add__ so when we do human '+' human,  neworn will be made.
 	def __add__(self, other):
 		#do a little check to make sure that other is Human.
 		if isinstance(other, Human):
