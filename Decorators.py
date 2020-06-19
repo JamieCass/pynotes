@@ -239,7 +239,7 @@ def show_args(fn):
 def do_nothing(*args, **kwargs):
     pass
 
-print(do_nothing(1,2,3, a='hi', b='bye'))
+do_nothing(1,2,3, a='hi', b='bye')
 
 ###--------------------------could of done it like this-----------------------------------####
 # def show_args(fn):
@@ -269,11 +269,101 @@ greet("Colt") # ["Hi, I'm Colt", "Hi, I'm Colt"]
 '''
 
 def double_return(fn):
+    @wraps(fn)
     def wrapper(*args, **kwargs):
-        return fn
+        val = fn(*args, **kwargs)
+        return [val, val]
     return wrapper
+
 @double_return
 def greet(name):
-    return "Hi, I'm" + name
+    return   "Hi I'm " + name
 
 greet('Colt')
+
+
+#Write a function that accepts a function and returns another funtion.
+#Function passed to it should only be invoked if there are fewer than 3 positional arguments passed to it.
+#Otherwise, the inner function should return 'Too many arguments!'
+
+'''
+@ensure_fewer_than_three_args
+def add_all(*nums):
+    return sum(nums)
+
+add_all() # 0
+add_all(1) # 1
+add_all(1,2) # 3
+add_all(1,2,3) # "Too many arguments!"
+add_all(1,2,3,4,5,6) # "Too many arguments!"
+'''
+
+def ensure_fewer_than_three_args(fn):
+    @wraps(fn)
+    def wrapper(*args):
+        if len(args) < 3:
+            return fn(*args)
+        return 'Too many arguments!'
+    return wrapper
+
+@ensure_fewer_than_three_args
+def add_all(*nums):
+    return sum(nums)
+
+add_all(1,6,2)
+
+
+'''
+@only_ints
+def add(x, y):
+    return x + y
+
+add(1, 2) # 3
+add("1", "2") # "Please only invoke with integers."
+'''
+
+from functools import wraps
+
+def only_ints(fn):
+    @wraps(fn)
+    def wrapper(*args):
+        if any(x for x in args if type(x) != int):
+            return 'Please only invoke with integers.'
+        return fn(*args)
+    return wrapper
+
+@only_ints
+def add(x, y):
+    return x + y
+add(1,2)
+add('1','2')
+
+'''
+@ensure_authorized
+def show_secrets(*args, **kwargs):
+    return "Shh! Don't tell anybody!"
+
+show_secrets(role="admin") # "Shh! Don't tell anybody!"
+show_secrets(role="nobody") # "Unauthorized"
+show_secrets(a="b") # "Unauthorized"
+'''
+
+from functools import wraps
+
+def ensure_authorized(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        if kwargs.get('role') == 'admin': #use the .get to get the name of the key in **kwargs
+            return fn(*args, **kwargs)
+        return 'Unauthorized'
+    return wrapper
+
+@ensure_authorized
+def show_secrets(*args, **kwargs):
+    return "Shh! Don't tell anybody!"
+
+show_secrets(role="admin")
+show_secrets(role="nobody)
+
+
+from time import sleep
