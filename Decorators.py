@@ -209,7 +209,7 @@ def greet(name):
 greet(name="Tony")#this wont work because we have set a **kwargs by settin the name to Tony
 greet('Tony') #this works because we have just called greet with Tony in the brackets, not setting a **kwargs
 
-##########################################
+##########################################   NEW TASK   ##########################################
 #Write a function called show_args that accepts a function and returns another function.
 #before invoking the function passed on it, show_args should be responsible for printing 2 things:
 #a tuple of the positional arguments and a dictionary of the keyword arguments.
@@ -251,7 +251,7 @@ do_nothing(1,2,3, a='hi', b='bye')
 #     return wrapper
 ####--------------------------------------------------------------------------------------####
 
-##########################################
+##########################################   NEW TASK   ##########################################
 #Write a function called double_return that accepts a function and returns another function.
 #double_return should decorate a function by returning two copies of the inner functions return value inside of a list.
 '''
@@ -282,6 +282,7 @@ def greet(name):
 greet('Colt')
 
 
+##########################################   NEW TASK   ##########################################
 #Write a function that accepts a function and returns another funtion.
 #Function passed to it should only be invoked if there are fewer than 3 positional arguments passed to it.
 #Otherwise, the inner function should return 'Too many arguments!'
@@ -313,6 +314,8 @@ def add_all(*nums):
 add_all(1,6,2)
 
 
+##########################################   NEW TASK   ##########################################
+
 '''
 @only_ints
 def add(x, y):
@@ -337,6 +340,9 @@ def add(x, y):
     return x + y
 add(1,2)
 add('1','2')
+
+
+##########################################   NEW TASK   ##########################################
 
 '''
 @ensure_authorized
@@ -363,7 +369,113 @@ def show_secrets(*args, **kwargs):
     return "Shh! Don't tell anybody!"
 
 show_secrets(role="admin")
-show_secrets(role="nobody)
+show_secrets(role='nobody')
+
+##########################################
+
+#E.G for ensuring first arg is equal to args..
+# NOT WORKING CODE!
+# JUST FOR DEMO PURPOSES!
+
+# When we write:
+@decorator
+def func(*args, **kwargs):
+    pass
+# We're really doing:
+func = decorator(func)
 
 
+# When we write:
+@decorator_with_args(arg) #we add the argument(arg)
+def func(*args, **kwargs):
+    pass
+# We're really doing:
+func = decorator_with_args(arg)(func)
+
+##########################################
+
+def ensure_first_arg_is(val):
+	def inner(fn):
+		@wraps(fn)
+		def wrapper(*args, **kwargs):
+			if args and args[0] != val: #we check if there are args in wrapper, then we make sure its equal to val
+				return f"First arg needs to be {val}"
+			return fn(*args, **kwargs)
+		return wrapper
+	return inner
+
+
+@ensure_first_arg_is("burrito") #this will check if the first value in fav food is burrito.
+def fav_foods(*foods):
+    print(foods)
+
+print(fav_foods("burrito", "ice cream")) # ('burrito', 'ice cream')
+print(fav_foods("ice cream", "burrito")) # 'Invalid! First argument must be burrito'
+
+@ensure_first_arg_is(10)
+def add_to_ten(num1, num2):
+    return num1 + num2
+
+print(add_to_ten(10, 12)) # 12
+print(add_to_ten(1, 2)) # 'Invalid! First argument must be 10'
+
+##########################################
+#enforce example (the power of decorators)
+
+def enforce(*types):
+    def decorator(f):
+        def new_func(*args, **kwargs):
+            #convert args into something mutable
+            newargs = []
+            for (a, t) in zip(args, types):
+               newargs.append( t(a)) #feel free to have more elaborated convertion (this will zip the type with the value..?)
+            return f(*newargs, **kwargs)
+        return new_func
+    return decorator
+
+@enforce(str, int) #this will make sure whats inserted is a string and an int
+def repeat_msg(msg, times):
+	for time in range(times):
+		print(msg)
+#repeat_msg('hello', '3')
+#('hello', str) ('3', int) #this will change because we we put the 'newargs' for loop in the new_func, so it will make sure the first value is a string then the second an int (it will change it itself)
+#['hello', 3] this is what it woill look like. its been changed because of the we used append with the types(args) bit of code.
+
+@enforce(float, float)
+def divide(a,b):
+	print(a/b)
+divide('1', '4') #this will work because we are making sure that both 'a' and 'b' are both floats.
+
+##########################################   NEW TASK   ##########################################
+
+#function that will wait to execute the function being decorated by the amount of time passed into it.
+#should also print a message informing the user there will be a delat before the decorated function get ran.
+
+'''
+@delay(3)
+def say_hi():
+    return "hi"
+
+say_hi()
+# should print the message "Waiting 3s before running say_hi" to the console
+# should then wait 3 seconds
+# finally, should invoke say_hi and return "hi"
+'''
+
+from functools import wraps
 from time import sleep
+
+def delay(num):
+    def inner(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            print  (f'Waiting for {num}s before running {fn.__name__}')
+            sleep(num)
+            return fn(*args, **kwargs)
+        return wrapper
+    return inner
+
+@delay(3)
+def say_hi():
+    return 'Hi'
+say_hi()
