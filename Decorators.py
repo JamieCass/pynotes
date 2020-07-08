@@ -148,7 +148,7 @@ def add(x,y):
     return x+y
 add(3,4)
 
-add.__doc__ #now this will work and come up with 'Adds two numbers together' not the wrapper doc.
+print(add.__doc__ )#now this will work and come up with 'Adds two numbers together' not the wrapper doc.
 #########################################
 #notice how we have the @wraps
 from functools import wraps
@@ -439,7 +439,7 @@ def repeat_msg(msg, times):
 		print(msg)
 #repeat_msg('hello', '3')
 #('hello', str) ('3', int) #this will change because we we put the 'newargs' for loop in the new_func, so it will make sure the first value is a string then the second an int (it will change it itself)
-#['hello', 3] this is what it woill look like. its been changed because of the we used append with the types(args) bit of code.
+#['hello', 3] this is what it will look like. its been changed because of the we used append with the types(args) bit of code.
 
 @enforce(float, float)
 def divide(a,b):
