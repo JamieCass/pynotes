@@ -163,7 +163,7 @@ def my_decorator(fn):
 ##########################################
 #More useful ways of using decorators
 ##########################################
-# Let's define a speed_test decorator (notes will be added later.)
+# Let's define a speed_test decorator.
 from functools import wraps
 from time import time
 
