@@ -126,13 +126,14 @@ add(4,5)
 
 # Test smallest parts of an application in isolation(e.g units)
 # Good candidates for unit testing: individual classes, modules or functions
-# Bad candidates for unti testing: an entire application, dependencies across several classes or modules.
+# Bad candidates for unit testing: an entire application, dependencies across several classes or modules.
 
 # Python comes with a built in module called unittest
 # You can write unit tests encapsulated as classes that inherit from 'unittest.TestCase'
 # This inheritance gives you access to many assertion helpers that let you test the behaviour of your functions
 # You can run the tests by calling 'unittest.main()'
 # To see comments, run 'python3 NAME_OF_TEST_FILE.py -v'
+#important to set all the tests in activities and the functions in there, to make sure test will pass. otherwise all tests below will fail.
 
 import unittest
 
@@ -140,7 +141,7 @@ class ActivityTests(unittest.TestCase):
     def test_eat_healthy(self):
     	"""eat should have a positive message for healthy eating"""
     	self.assertEqual(
-			eat("broccoli", is_healthy=True),
+			eat("broccoli", is_healthy=True),#this is the condition, if it passes then the line bellow will also be printed
 			"I'm eating broccoli, because my body is a temple"
     	)
     def test_eat_unhealthy(self):
@@ -151,7 +152,7 @@ class ActivityTests(unittest.TestCase):
     	)
     def test_eat_healthy_boolean(self):
     	"""is_healthy must be a bool"""
-    	with self.assertRaises(ValueError):
+    	with self.assertRaises(ValueError):#raises a ValueError if is_healthy is not a booleen!
     		eat("pizza", is_healthy="who cares?")
 
     def test_short_nap(self):
@@ -181,3 +182,31 @@ class ActivityTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+##########################################   BEFORE AND AFTER HOOKS   ##########################################
+# setUp and tearDown
+# For larger applications, you may want similar application state before running tests
+# setUp rund before each test method
+# tearDown runbs after each test method
+# Common use casses: adding/removing data from a test database, creating instances of a class.
+
+class SomeTest(unittest.TestCase):
+    # this is how you would write a setUp and tearDown test
+
+    def setUp(self): # This will run before any of the code below.
+        # setup code goes here!
+        pass
+
+    def test_first(self):
+        # setUp runs before this test
+        # tearDown will run after
+        pass
+
+    def test_second(self):
+        # setUp runs before this test
+        # tearDown will run after
+        pass
+        
+    def tearDown(self): # This will run after each test function.
+        # teardwon code goes here
+        pass
