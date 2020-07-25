@@ -18,7 +18,7 @@ datafile = check(file = '/Users/jamie/Coding/pynotes/numpy_utils.py')
 print(''.join(datafile))
 
 
-#define the work we want to look up.
+#define the word we want to look up.
 ##########################################
 str_to_lookup = 'def'
 ##########################################

@@ -8,7 +8,7 @@
 
 #Occurs when theres a problem with the syntax (not valid python)
 
-None = 1 
+None = 1
 #SyntaxError: invalid syntax
 
 
@@ -16,9 +16,9 @@ None = 1
 # NameError
 ##########################################
 
-#Occurs when a variable is not defined 
+#Occurs when a variable is not defined
 
-test 
+test
 #NameError: name 'test' is not defined
 
 
@@ -28,11 +28,11 @@ test
 
 #Occurs when operation or function is applied to wrong type
 
-len(5) 
+len(5)
 #TypeError: object of type 'int' has no len()
 
 
-'awesome' + [] 
+'awesome' + []
 #TypeError: cannot concatenate 'str' and 'list' objects
 
 
@@ -167,6 +167,7 @@ while True:
 		break
 	finally:
 		print("RUNS NO MATTER WHAT!")
+
 print("REST OF GAME LOGIC RUNS!")
 
 # try:
@@ -200,7 +201,6 @@ def divide(a,b):
 	else:
 		print(f"{a} divided by {b} is {result}")
 
-
 print(divide(1,2))
 print(divide(1,'a'))
 print(divide(1,0))
@@ -227,11 +227,11 @@ print(divide(1,0))
 # print(result)
 
 
-# Be careful with variable names you dont want the variable to be the same as PDB commands! 
+# Be careful with variable names you dont want the variable to be the same as PDB commands!
 #(c below for instance just continues the code from the break)
 
 def add_numbers(a, b, c, d):
-    import pdb; pdb.set_trace() 
+    import pdb; pdb.set_trace()
 
     return a + b + c + d
 add_numbers(1,2,3,4)
@@ -250,4 +250,3 @@ add_numbers(1,2,3,4)
 # n (next line)
 # p (print)
 # c (continue - finishes debugging)
-
