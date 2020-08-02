@@ -140,4 +140,35 @@ el = soup.select('.special')[0]
 el.get_text()  # this will show just the text from the 'special' class
 
 for le in soup.select('.special'):
-    print(le.get_text())
+    print('This is the text: \n', le.get_text(), '\n')
+    print('This is the name: \n', le.name, '\n')
+    print('This is a dictionary of attributes: \n', le.attrs['class'], '\n')
+
+attr = soup.find('h3')['data-example'] # find the h3 and what its called
+attr
+divv = soup.find('div')['id'] # find the first div and get the id name
+divv
+
+##########################################   FIRST SCRAPING PROGRAM   ##########################################
+
+site = 'https://www.rithmschool.com/blog'
+import requests
+from bs4 import BeautifulSoup
+from csv import writer
+
+response = requests.get(site)
+print(response.text)
+soup = BeautifulSoup(response.text, 'html.parser')
+articles = soup.find_all('article')
+print(articles)
+
+with open('blog_data', 'w') as csv_file:
+    csv_writer = writer(csv_file)
+    csv_writer.writerow(['title', 'link', 'date'])
+
+    for article in articles:
+        a_tag = article.find('a') # save all the a tags to a variable
+        title = a_tag.get_text() # we can use the a tag variable to call get_text
+        url = a_tag['href'] # save all the urls from the a_tag we called
+        date = article.find('time')['datetime']
+        csv_writer.writerow([title, url, date])
