@@ -162,7 +162,7 @@ soup = BeautifulSoup(response.text, 'html.parser')
 articles = soup.find_all('article')
 print(articles)
 
-with open('blog_data', 'w') as csv_file:
+with open('blog_data.csv', 'w') as csv_file:
     csv_writer = writer(csv_file)
     csv_writer.writerow(['title', 'link', 'date'])
 
@@ -172,3 +172,6 @@ with open('blog_data', 'w') as csv_file:
         url = a_tag['href'] # save all the urls from the a_tag we called
         date = article.find('time')['datetime']
         csv_writer.writerow([title, url, date])
+a_tag
+title
+url
