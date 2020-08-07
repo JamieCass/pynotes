@@ -82,7 +82,7 @@ i = soup.find(id = 'first') # this will print out everything in <div id = 'first
 css = soup.select('#first') # will give you the same result (in a list) as i.
 d = soup.select("[data-example]")
 # d = soup.find_all(attrs={'data-example': 'yes'}) # above code could of been written like this, but its not as nice!
-print(d)
+d
 css
 i
 
@@ -175,3 +175,4 @@ with open('blog_data.csv', 'w') as csv_file:
 a_tag
 title
 url
+date
