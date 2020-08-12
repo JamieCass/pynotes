@@ -17,9 +17,14 @@ trial = soup.find_all(class_ = 'quote')
 
 for x in trial:
     text2 = soup.find_all(class_ = 'text')
-new = [x.text for x in trial]
+new = [x.text for x in text2]
 new
 
+davids = [x.find('a') for x in trial]
+davids
+
+page_list = [c['href'] for c in soup.find_all('a')]
+page_list
 # ------------------------------------------
 
 
@@ -53,3 +58,20 @@ for link in project_href:
         print(link)
 author_links = [link for link in project_href if all(keyword in link for keyword in keywords)]
 author_links
+
+
+albert = site + author_links[0]
+albert
+alb_bio = requests.get(albert)
+print(alb_bio.text)
+
+al_soup = BeautifulSoup(alb_bio.text, 'html.parser')
+alb_info = []
+alb_dob = al_soup.find(class_ = 'author-born-date')
+print(alb_description)
+alb_info.append(alb_dob.text)
+alb_info
+alb_loc = al_soup.find(class_ = 'author-born-location')
+alb_info.append(alb_loc.text)
+alb_desc = al_soup.find(class_ = 'author-description')
+alb_info.append(alb_desc.text)
