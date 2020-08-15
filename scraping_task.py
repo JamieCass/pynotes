@@ -2,18 +2,24 @@ from bs4 import BeautifulSoup
 import requests
 from csv import reader
 from csv import writer
+import urllib
+from urllib.parse import urljoin
 
 
+site = 'http://quotes.toscrape.com'
+r = requests.get(site)
+soup = BeautifulSoup(r.text, 'html.parser')
+#
+# print(r.text)
 
-for i in range(11):      # Number of pages plus one
-    site = 'http://quotes.toscrape.com/'.format(i)
-    r = requests.get(site)
-    soup = BeautifulSoup(r.text, 'html.parser')
+# for i in range(1,11):      # Number of pages plus one
+#     url = "http://quotes.toscrape.com/page/{}".format(i)
+#     r = requests.get(url)
+#     soup = BeautifulSoup(r.text, 'html.parser')
 
-
-
-
+print(r.text)
 # --------- testing some stuff out ---------
+
 
 trial = soup.find_all(class_ = 'quote')
 
@@ -26,10 +32,12 @@ davids = [x.find('a') for x in trial]
 davids
 
 def webIterate():
+    count = 1
     base_link = "http://quotes.toscrape.com/"
-    for i in range(11):
-        return f'http://quotes.toscrape.com/page/{i}'
-webIterate()
+    while count <= 11:
+        yield count
+        count +=1
+    return f'http://quotes.toscrape.com/page/{count}'
 
 next_page = soup.find_all(class_ = 'next')
 next_page
