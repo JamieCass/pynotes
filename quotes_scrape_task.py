@@ -22,28 +22,6 @@ quotes[0]
 quotes[0].find('div')
 
 
-l = [1,2,3]
-l+l
-
-counter = 0
-while counter<10:
-    print(counter)
-    counter+=1
-
-while True:
-    if counter<10:
-        print(counter)
-    else:
-        break
-
-
-l.append([4,5])
-
-l
-
-
-
-
 
 
 # ## Example on on quote

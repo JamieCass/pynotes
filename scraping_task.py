@@ -9,74 +9,139 @@ from urllib.parse import urljoin
 site = 'http://quotes.toscrape.com'
 r = requests.get(site)
 soup = BeautifulSoup(r.text, 'html.parser')
-#
-# print(r.text)
-
-# for i in range(1,11):      # Number of pages plus one
-#     url = "http://quotes.toscrape.com/page/{}".format(i)
-#     r = requests.get(url)
-#     soup = BeautifulSoup(r.text, 'html.parser')
 
 print(r.text)
-# --------- testing some stuff out ---------
 
-
-trial = soup.find_all(class_ = 'quote')
-
-for x in trial:
-    text2 = soup.find_all(class_ = 'text')
-new = [x.text for x in text2]
-new
-
-davids = [x.find('a') for x in trial]
-davids
-
-def webIterate():
-    count = 1
-    base_link = "http://quotes.toscrape.com/"
-    while count <= 11:
-        yield count
-        count +=1
-    return f'http://quotes.toscrape.com/page/{count}'
-
-next_page = soup.find_all(class_ = 'next')
-next_page
-# ------------------------------------------
-
-
-# TEXT OF QUOTES
-text = soup.select('.text')
-quotes = [x.text for x in text]
+quotes = soup.find_all('div', class_ = 'quote')
 quotes
 
+quotes[0].find('span', class_ = 'text').text
 
-# NAME OF PERSON
-author = soup.select('.author')
-authors = [x.text for x in author]
-authors
+quotes[0].find('small', class_ = 'author').text
+
+quote_list = []
+author_list = []
+for quote in quotes:
+    text = quote.find('span', class_ = 'text').text
+    quote_list.append(text)
+    author = quote.find('small', class_ = 'author').text
+    author_list.append(author)
+
+next_page = soup.find(class_ = 'next')
+next_page_url = next_page.find('a')['href']
+next_page_url
+
+def page_open(site):
+    '''
+    request the site
+    parse into bs
+    find quotes and authors
+    find next page
+    '''
+    r = requests.get(site)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    quotes = soup.find_all('div', class_ = 'quote')
+    quote_list = []
+    author_list = []
+    author_links = []
+    for quote in quotes:
+        text = quote.find('span', class_ = 'text').text
+        quote_list.append(text)
+        author = quote.find('small', class_ = 'author').text
+        author_list.append(author)
+        author_link = quote.find_all('span')[1].find('a')['href']
+        author_links.append(author_link)
+    try:
+        next_page = soup.find(class_ = 'next')
+        next_page_url = next_page.find('a')['href']
+    except:
+        next_page_url = None
+    return quote_list, author_list,author_links, next_page_url
+
+#######################
+# Loop all pages
+#######################
+quotes_all = []
+authors_all = []
+author_links_all = []
+rootpage = 'http://quotes.toscrape.com'
+
+# Initialize the first "Next page" as the rootpage
+next_page = rootpage
+
+for i in range(10):
+    print('current_page:', next_page)
+    # Run for current page - current next_page is rootpage
+    quote_text, author_names, author_links, next_page_url = page_open(next_page)
+    quotes_all = quotes_all + quote_text
+    authors_all = authors_all + author_names
+    author_links_all = author_links_all + author_links
+    # Now we set the "next_page" with the next page
+    next_page = urljoin(rootpage, next_page_url)
+
+    print('\tquotes_all:',len(quotes_all))
+    print('\tauthors_all:',len(authors_all))
+    print('\tnext_page:', next_page)
 
 
-# HREF OF LINK
-project_href = [i['href'] for i in soup.find_all('a', href=True)]
-project_href
+authors_all
+print('#'*50)
+##################################################
+# AUTHOR BIO
+##################################################
+author_links_all
+len(set(author_links_all))
 
-keywords = ['author']
-author_links = [link for link in project_href if all(keyword in link for keyword in keywords)]
-author_links
+def bio_open(site):
+    '''
+    request the site
+    parse into bs
+    find author D.O.B, birth location and some details about them.
+    '''
+    bio_r = requests.get(site)
+    soupb = BeautifulSoup(bio_r.text, 'html.parser')
+    bio_name = soupb.find('h3', class_ = 'author-title')
+    bio_dob = soupb.find('span', class_ = 'author-born-date')
+    bio_loc = soupb.find('span', class_ = 'author-born-location')
+    bio_desc = soupb.find('div', class_ = 'author-description')
+    author_main_name = []
+    author_dob = []
+    author_loc = []
+    author_info = []
+    dob = bio_dob.text
+    author_dob.append(dob)
+    loc = bio_loc.text
+    author_loc.append(loc)
+    info = bio_desc.text
+    author_info.append(info)
+
+    return author_main_name, author_dob, author_loc, author_info
 
 
-albert = site + author_links[0]
-albert
-alb_bio = requests.get(albert)
-print(alb_bio.text)
+#######################
+# Loop all author pages
+#######################
+biopage = urljoin(rootpage,author_links_all[0])
+next_page1 = biopage
+all_author_main_name = []
+all_author_dob = []
+all_author_loc = []
+all_author_info = []
 
-al_soup = BeautifulSoup(alb_bio.text, 'html.parser')
-alb_info = []
-alb_dob = al_soup.find(class_ = 'author-born-date')
-alb_info.append(alb_dob.text)
-alb_loc = al_soup.find(class_ = 'author-born-location')
-alb_info.append(alb_loc.text)
-alb_desc = al_soup.find(class_ = 'author-description')
-alb_info.append(alb_desc.text.replace('\n', ''))
 
-alb_info
+for i in set(author_links_all):
+    print('current_page:', next_page1)
+    author_main_name, author_dob, author_loc, author_info = bio_open(next_page1)
+    all_author_main_name = all_author_main_name + author_main_name
+    all_author_dob = all_author_dob + author_dob
+    all_author_loc = all_author_loc + author_loc
+    all_author_info = all_author_info + author_info
+    next_page1 = urljoin(biopage, i)
+    print('\tauthor_main_name:',len(all_author_main_name))
+    print('\tall_author_dob:',len(all_author_dob))
+    print('\tall_author_loc:',len(all_author_loc))
+    print('\tall_author_info:',len(all_author_info))
+all_author_dob
+all_author_loc
+
+######################################################################################################################################################
