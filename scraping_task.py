@@ -19,6 +19,7 @@ quotes[0].find('span', class_ = 'text').text
 
 quotes[0].find('small', class_ = 'author').text
 
+
 quote_list = []
 author_list = []
 for quote in quotes:
@@ -31,6 +32,11 @@ next_page = soup.find(class_ = 'next')
 next_page_url = next_page.find('a')['href']
 next_page_url
 
+######################################################################################################################################################
+
+##################################################
+# ALL PAGE SCRAPE
+##################################################
 def page_open(site):
     '''
     request the site
@@ -83,14 +89,13 @@ for i in range(10):
     print('\tauthors_all:',len(authors_all))
     print('\tnext_page:', next_page)
 
+######################################################################################################################################################
 
-authors_all
-print('#'*50)
 ##################################################
 # AUTHOR BIO
 ##################################################
 author_links_all
-len(set(author_links_all))
+len(author_links_all)
 
 def bio_open(site):
     '''
@@ -108,6 +113,8 @@ def bio_open(site):
     author_dob = []
     author_loc = []
     author_info = []
+    name = bio_name.text
+    author_main_name.append(name)
     dob = bio_dob.text
     author_dob.append(dob)
     loc = bio_loc.text
@@ -137,11 +144,81 @@ for i in set(author_links_all):
     all_author_loc = all_author_loc + author_loc
     all_author_info = all_author_info + author_info
     next_page1 = urljoin(biopage, i)
-    print('\tauthor_main_name:',len(all_author_main_name))
-    print('\tall_author_dob:',len(all_author_dob))
-    print('\tall_author_loc:',len(all_author_loc))
-    print('\tall_author_info:',len(all_author_info))
+    # print('\tauthor_main_name:',len(all_author_main_name))
+    # print('\tall_author_dob:',len(all_author_dob))
+    # print('\tall_author_loc:',len(all_author_loc))
+    # print('\tall_author_info:',len(all_author_info))
 all_author_dob
 all_author_loc
 
 ######################################################################################################################################################
+#######################
+# Guessing Game Code
+#######################
+import random
+
+q1 = quotes_all[0]
+
+quote_index = quotes_all.index(q1)
+quote_index
+authors_all[quote_index]
+correct_answer = authors_all[quote_index]
+correct_answer
+
+def question():
+    '''
+    Function that allows user to play a guessing game, guessing who wrote a quote.
+    User gets 4 tries, after each wrong answer they get a clue to help them.
+    After user has no more guesses they get the answer and option to play again.
+    '''
+    ##############################################
+    tries = 3
+    # Q1 = quotes_all[0]
+    Q1 = random.choice(quotes_all)
+    quote_index = quotes_all.index(Q1)
+    correct_answer = authors_all[quote_index]
+    ##############################################
+
+    rootpage = 'http://quotes.toscrape.com'
+    biopage = urljoin(rootpage,author_links_all[quote_index])
+    r = requests.get(biopage)
+    soup = BeautifulSoup(r.text, 'html.parser')
+
+    ##############################################
+
+    dob = soup.find('span', class_ = 'author-born-date')
+    loc = soup.find('span', class_ = 'author-born-location')
+
+    ##############################################
+
+    print(Q1)
+    answer = input('Can you guess who said the quote?')
+
+    while tries >= 1:
+        if answer.lower() != correct_answer.lower() and tries >= 3:
+            tries -= 1
+            print(f'WRONG!. Tries remaining {tries}')
+            print(f'HINT. This author was born: {dob.text}')
+            answer = input('Please try again')
+        elif answer.lower() != correct_answer.lower() and tries >=2:
+            tries -= 1
+            print(f'Still WRONG!. Tries remaining {tries}')
+            print(f'HINT. This author was born {loc.text}')
+            answer = input('Please try AGAIN')
+        elif answer.lower() != correct_answer.lower() and tries >=1:
+            tries -= 1
+            print(f'Still WRONG!. Tries remaining {tries}')
+            answer = input('Please try AGAIN!!')
+        elif answer.lower() != correct_answer.lower() and tries >=0:
+            tries -= 1
+            print(f'LAST CHANCE!. Tries remaining {tries}')
+            final = input('Final guess')
+        else:
+            return 'WELL DONE'
+    print(f'The correct answer was: {correct_answer}')
+
+
+
+
+
+question()
