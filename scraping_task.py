@@ -172,7 +172,7 @@ def question():
     After user has no more guesses they get the answer and option to play again.
     '''
     ##############################################
-    tries = 3
+    tries = 4
     # Q1 = quotes_all[0]
     Q1 = random.choice(quotes_all)
     quote_index = quotes_all.index(Q1)
@@ -194,23 +194,23 @@ def question():
     print(Q1)
     answer = input('Can you guess who said the quote?')
 
-    while tries >= 1:
-        if answer.lower() != correct_answer.lower() and tries >= 3:
+    while tries > 1:
+        if answer.lower() != correct_answer.lower() and tries >= 4:
             tries -= 1
-            print(f'WRONG!. Tries remaining {tries}')
-            print(f'HINT. This author was born: {dob.text}')
+            print(f'WRONG!. Tries remaining {tries}',)
+            print(f'\tHINT. This author was born: {dob.text}')
             answer = input('Please try again')
-        elif answer.lower() != correct_answer.lower() and tries >=2:
+        elif answer.lower() != correct_answer.lower() and tries >=3:
             tries -= 1
             print(f'Still WRONG!. Tries remaining {tries}')
             print(f'HINT. This author was born {loc.text}')
             answer = input('Please try AGAIN')
-        elif answer.lower() != correct_answer.lower() and tries >=1:
+        elif answer.lower() != correct_answer.lower() and tries >=2:
             tries -= 1
             print(f'Still WRONG!. Tries remaining {tries}')
             answer = input('Please try AGAIN!!')
-        elif answer.lower() != correct_answer.lower() and tries >=0:
-            tries -= 1
+        elif answer.lower() != correct_answer.lower() and tries >=1:
+            # tries -= 1
             print(f'LAST CHANCE!. Tries remaining {tries}')
             final = input('Final guess')
         else:
