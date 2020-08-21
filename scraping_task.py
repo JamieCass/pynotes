@@ -177,6 +177,7 @@ def question():
     Q1 = random.choice(quotes_all)
     quote_index = quotes_all.index(Q1)
     correct_answer = authors_all[quote_index]
+    
     ##############################################
 
     rootpage = 'http://quotes.toscrape.com'
@@ -215,7 +216,7 @@ def question():
             final = input('Final guess')
         else:
             return 'WELL DONE'
-    print(f'The correct answer was: {correct_answer}')
+    print(f'WRONGGGGG!!! The correct answer was: {correct_answer}')
 
 
 
