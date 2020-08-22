@@ -157,14 +157,16 @@ all_author_loc
 #######################
 import random
 
-q1 = quotes_all[0]
+q1 = quotes_all[1]
 
 quote_index = quotes_all.index(q1)
 quote_index
 authors_all[quote_index]
 correct_answer = authors_all[quote_index]
 correct_answer
+hint = [x[0] for x in correct_answer.split()]
 
+print(hint)
 def question():
     '''
     Function that allows user to play a guessing game, guessing who wrote a quote.
@@ -172,54 +174,52 @@ def question():
     After user has no more guesses they get the answer and option to play again.
     '''
     ##############################################
+    # Set up of the hints and where to get everything from..
     tries = 4
-    # Q1 = quotes_all[0]
-    Q1 = random.choice(quotes_all)
+    Q1 = quotes_all[0]
+    # Q1 = random.choice(quotes_all)
     quote_index = quotes_all.index(Q1)
     correct_answer = authors_all[quote_index]
-    
-    ##############################################
+    name_hint = [x[0] for x in correct_answer.split()]
 
+    ##############################################
+    # Set up the scraping part..
     rootpage = 'http://quotes.toscrape.com'
     biopage = urljoin(rootpage,author_links_all[quote_index])
     r = requests.get(biopage)
     soup = BeautifulSoup(r.text, 'html.parser')
 
     ##############################################
-
+    # Set the scraping of the DOB and LOC of the authors for hints..
     dob = soup.find('span', class_ = 'author-born-date')
     loc = soup.find('span', class_ = 'author-born-location')
 
     ##############################################
-
+    # Print statements and what to do when they get it wrong or right..
     print(Q1)
     answer = input('Can you guess who said the quote?')
 
-    while tries > 1:
-        if answer.lower() != correct_answer.lower() and tries >= 4:
+    while tries > 0:
+        if answer.lower() != correct_answer.lower() and tries >3:
             tries -= 1
             print(f'WRONG!. Tries remaining {tries}',)
             print(f'\tHINT. This author was born: {dob.text}')
-            answer = input('Please try again')
-        elif answer.lower() != correct_answer.lower() and tries >=3:
+            answer = input('2nd try..')
+        elif answer.lower() != correct_answer.lower() and tries >2:
             tries -= 1
             print(f'Still WRONG!. Tries remaining {tries}')
-            print(f'HINT. This author was born {loc.text}')
-            answer = input('Please try AGAIN')
-        elif answer.lower() != correct_answer.lower() and tries >=2:
+            print(f'\tHINT. This author was born {loc.text}')
+            answer = input('3rd try..')
+        elif answer.lower() != correct_answer.lower() and tries >1:
             tries -= 1
             print(f'Still WRONG!. Tries remaining {tries}')
-            answer = input('Please try AGAIN!!')
-        elif answer.lower() != correct_answer.lower() and tries >=1:
-            # tries -= 1
-            print(f'LAST CHANCE!. Tries remaining {tries}')
-            final = input('Final guess')
+            print(f'\tLAST HINT... The first letters of the authors name are: {name_hint}')
+            answer = input('Last try..')
+        elif answer.lower() != correct_answer.lower():
+            print(f'WRONGGGGG!!! \n\tThe correct answer was: {correct_answer}')
         else:
             return 'WELL DONE'
-    print(f'WRONGGGGG!!! The correct answer was: {correct_answer}')
 
-
-
-
+    print(f'WRONGGGGG!!! \n\tThe correct answer was: {correct_answer}')
 
 question()
