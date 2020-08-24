@@ -12,26 +12,6 @@ soup = BeautifulSoup(r.text, 'html.parser')
 
 print(r.text)
 
-quotes = soup.find_all('div', class_ = 'quote')
-quotes
-
-quotes[0].find('span', class_ = 'text').text
-
-quotes[0].find('small', class_ = 'author').text
-
-
-quote_list = []
-author_list = []
-for quote in quotes:
-    text = quote.find('span', class_ = 'text').text
-    quote_list.append(text)
-    author = quote.find('small', class_ = 'author').text
-    author_list.append(author)
-
-next_page = soup.find(class_ = 'next')
-next_page_url = next_page.find('a')['href']
-next_page_url
-
 ######################################################################################################################################################
 
 ##################################################
@@ -92,10 +72,8 @@ for i in range(10):
 ######################################################################################################################################################
 
 ##################################################
-# AUTHOR BIO
+# AUTHOR BIO (NOT NEEDED...)
 ##################################################
-author_links_all
-len(author_links_all)
 
 def bio_open(site):
     '''
@@ -148,25 +126,14 @@ for i in set(author_links_all):
     # print('\tall_author_dob:',len(all_author_dob))
     # print('\tall_author_loc:',len(all_author_loc))
     # print('\tall_author_info:',len(all_author_info))
-all_author_dob
-all_author_loc
 
 ######################################################################################################################################################
+
 #######################
 # Guessing Game Code
 #######################
 import random
 
-q1 = quotes_all[1]
-
-quote_index = quotes_all.index(q1)
-quote_index
-authors_all[quote_index]
-correct_answer = authors_all[quote_index]
-correct_answer
-hint = [x[0] for x in correct_answer.split()]
-
-print(hint)
 def question():
     '''
     Function that allows user to play a guessing game, guessing who wrote a quote.
@@ -196,30 +163,41 @@ def question():
 
     ##############################################
     # Print statements and what to do when they get it wrong or right..
+
     print(Q1)
-    answer = input('Can you guess who said the quote?')
+    answer = input('Can you guess who said the quote?').lower()
 
     while tries > 0:
-        if answer.lower() != correct_answer.lower() and tries >3:
+        if answer != correct_answer.lower() and tries >3:
             tries -= 1
             print(f'WRONG!. Tries remaining {tries}',)
             print(f'\tHINT. This author was born: {dob.text}')
-            answer = input('2nd try..')
-        elif answer.lower() != correct_answer.lower() and tries >2:
+            answer = input('2nd try..').lower()
+        elif answer != correct_answer.lower() and tries >2:
             tries -= 1
             print(f'Still WRONG!. Tries remaining {tries}')
             print(f'\tHINT. This author was born {loc.text}')
-            answer = input('3rd try..')
-        elif answer.lower() != correct_answer.lower() and tries >1:
+            answer = input('3rd try..').lower()
+        elif answer != correct_answer.lower() and tries >1:
             tries -= 1
             print(f'Still WRONG!. Tries remaining {tries}')
             print(f'\tLAST HINT... The first letters of the authors name are: {name_hint}')
-            answer = input('Last try..')
-        elif answer.lower() != correct_answer.lower():
+            answer = input('Last try..').lower()
+        elif answer != correct_answer.lower():
             print(f'WRONGGGGG!!! \n\tThe correct answer was: {correct_answer}')
+            break
         else:
-            return 'WELL DONE'
+            print('WELL DONE')
+            break
 
-    print(f'WRONGGGGG!!! \n\tThe correct answer was: {correct_answer}')
+    play_again = input('Do you want to play again? (y/n)').lower()
+    if play_again == 'y':
+        question()
+    else:
+        print('Thank you for playing!')
+        
+
+
+
 
 question()
