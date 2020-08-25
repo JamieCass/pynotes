@@ -143,8 +143,7 @@ def question():
     ##############################################
     # Set up of the hints and where to get everything from..
     tries = 4
-    Q1 = quotes_all[0]
-    # Q1 = random.choice(quotes_all)
+    Q1 = random.choice(quotes_all)
     quote_index = quotes_all.index(Q1)
     correct_answer = authors_all[quote_index]
     name_hint = [x[0] for x in correct_answer.split()]
@@ -195,9 +194,6 @@ def question():
         question()
     else:
         print('Thank you for playing!')
-        
-
-
 
 
 question()
