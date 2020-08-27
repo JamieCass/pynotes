@@ -217,4 +217,8 @@ parse_date('20.08.199919')
 # this includes 'fracking', 'fracker', 'frack' etc..
 
 def censor(input):
-    censor_rege = re.compile(r'', re.I)
+    censor_regex = re.compile(r'(frack[a-z]*)', re.I)
+    result = censor_regex.sub('CENSORED', input)
+    return result
+
+censor('youre a fracking idiot')
