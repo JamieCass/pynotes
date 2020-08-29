@@ -221,4 +221,18 @@ def censor(input):
     result = censor_regex.sub('CENSORED', input)
     return result
 
+# Couold of done it like this..
+# def censor(input):
+#     pattern = re.compile(r'\bfrack\w*\b', re.IGNORECASE)
+#     return pattern.sub("CENSORED", input)
+
 censor('youre a fracking idiot')
+
+
+def my_searcher(input):
+    pho_regex = re.compile(r'\b\d{10}\b')
+    em_regex = re.compile(r'\b[a-z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z0-9-.]+\b', re.I)
+    match1 = pho_regex.search(input)
+    match2 = em_regex.search(input)
+    return match1, match2
+my_searcher('hello, my name is jamie, my phone number is 0473263546 and my email is jamie@gmail.com')
