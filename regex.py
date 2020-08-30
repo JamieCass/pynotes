@@ -100,7 +100,7 @@ def is_valid_phone(input):
 
 def is_valid_phone(input):
     phone_regex = re.compile(r'\d{3} \d{3}-\d{4}')
-    match = phone_regex.fullmatch(input) # we can use full match instead of search woth the '^' and '$' at the start and end of the string.
+    match = phone_regex.fullmatch(input) # we can use full match instead of search with the '^' and '$' at the start and end of the string.
     if match:
         return True
     return False
@@ -171,6 +171,33 @@ result # '*****' replaces the title and name
 result_2 # '*****' replaces the name but not the title
 result_3 # shows just the title and first letter of the name.
 
+##########################################
+ # Swapping file names
+##########################################
+
+import re
+titles = [
+    "Significant Others (1987)",
+    "Tales of the City (1978)",
+    "The Days of Anna Madrigal (2014)",
+    "Mary Ann in Autumn (2010)",
+    "Further Tales of the City (1982)",
+    "Babycakes (1984)",
+    "More Tales of the City (1980)",
+    "Sure of You (1989)",
+    "Michael Tolliver Lives (2007)"
+]
+titles.sort()
+fixed_titles = []
+
+pattern = re.compile(r'(?P<title>^[\w ]+) \((?P<date>\d{4})\)')
+for book in titles:
+    # result = pattern.sub("\g<2> - \g<1>", book)
+    result = pattern.sub("\g<date> - \g<title>", book) # We swap the title and date around.
+
+    fixed_titles.append(result)
+fixed_titles.sort()
+fixed_titles
 ##########################################   NEW TASK   ##########################################
 # function that accepts a single string and return True if the string is formatted as time
 
@@ -232,7 +259,10 @@ censor('youre a fracking idiot')
 def my_searcher(input):
     pho_regex = re.compile(r'\b\d{10}\b')
     em_regex = re.compile(r'\b[a-z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z0-9-.]+\b', re.I)
-    match1 = pho_regex.search(input)
-    match2 = em_regex.search(input)
-    return match1, match2
-my_searcher('hello, my name is jamie, my phone number is 0473263546 and my email is jamie@gmail.com')
+    match1 = pho_regex.findall(input)
+    match2 = em_regex.findall(input)
+    return {
+            'Phone numbers' : match1,
+            'Emails:' : match2
+    }
+my_searcher('hello, my name is jamie, my phone number is 0473263546 and my email is jamie@gmail.com. If you need to contact me outside of hours call 0485578847 or email my personal account on jamie2@gmail.com')
