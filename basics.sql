@@ -9,6 +9,7 @@
 ------------------------------------------
 -- --to check tables
 -- .tables
+-- .schema (will let you look what the command was when making the table)
 -- CREATE TABLE dogs (
 --     name TEXT,
 --     breed TEXT,
