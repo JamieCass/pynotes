@@ -2,7 +2,7 @@ import sqlite3
 import requests
 from bs4 import BeautifulSoup
 
-history_books = 'http://books.toscrape.com/catalogue/category/books/history_32/index.html')
+history_books = 'http://books.toscrape.com/catalogue/category/books/history_32/index.html'
 
 
 
@@ -14,11 +14,11 @@ def scrape_books(url):
     for book in books:
         book_data = (get_title(book), get_price(book), get_rating(book))
         all_books.append(book_data)
-    print(all_books)
+    save_books(all_books)
 
-# save all books to database.. (will add more notes at a later date)
+# save all the books to a database
 def save_books(all_books):
-	connection = sqlite3.connect("books.db")
+	connection = sqlite3.connect("books.db") # make a file where the books will be stored
 	c = connection.cursor()
 	c.execute('''CREATE TABLE books
 		(title TEXT,price REAL,rating INTEGER)''')
@@ -45,8 +45,9 @@ def get_rating(book):
     word = paragraph.get_attribute_list('class')[-1]
     return ratings[word]
 
+scrape_books(history_books)
 
-
-# Extract data we want
-
-# Save data to database
+conn = sqlite3.connect('books.db')
+c = conn.cursor()
+c.execute('SELECT * FROM books WHERE rating >= 3')
+c.fetchall()
