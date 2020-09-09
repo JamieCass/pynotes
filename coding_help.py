@@ -27,68 +27,6 @@ import lxml
 
 
 ##################################################
-# AWS stuff
-##################################################
-
-'''
-start with downloading your keys from AWS and save them in folder,(i use a keys folder).
-
-MAKE SURE you make permissions private using... chmod 600 (filename and destination if needed)
-
--------------
-
-to connect to AWS..
-
-ssh -i (key file, and destination if you arent there already) -vv(prints out verbose's)
-ec2-user@(the public DNS info for your instance info)
-
--------------
-
-to update and install python / jupyter
-
--sudo apt-get update
--sudo apt install python3-pip
--pip3 install jupyter
--sudo apt-get install default-jre (install java) this is needed for scala, scala is needed for spark
--sudo apt-get install scala
--pip3 install py4j (this lets python connect with java)
-
-------------------download spark-------------------- (you may have to change version)
--wget https://archive.apache.org/dist/spark/spark-3.0.0/spark-3.0.0-bin-hadoop2.7.tgz
-
----unzip and install---
--sudo tar -zxvf spark-3.0.0-bin-hadoop2.7.tgz
-
--cd (tab complete)
--pwd (to see youre in the right place.. This is important for later on in Jupyter)
--cd (back to home directory)
-
--pip3 install findspark (this helps us connect python and spark)
--jupyter notebook --generate-config
-(vvvvv -if the line above doesnt work try the line below first- vvvvv)
--sudo apt-get install jupyter-notebook
-
------- make a certs folder with some certs for the jupyter notebook
--cd
--mkdir certs
--cd certs
--sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
-FILL IN DETAILS
--cd ~/.jupyter/
--vi jupyter_notebook_config.py
-
----------write some info to the jupyter config file---------
-type 'i' to start inserting text
--c = get_config()
--c.NotebookApp.certfile = u'/home/ubuntu/certs/mycert.pem'
--c.NotebookApp.ip = '*'
--c.NotebookApp.open_browser = False
-c.NotebookApp.port = 8888
-press esc
--:wq!
-'''
-
-##################################################
 # Helpful files i have on my machine
 ##################################################
 
