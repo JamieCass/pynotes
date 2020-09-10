@@ -30,14 +30,11 @@ import lxml
 # Helpful files i have on my machine
 ##################################################
 
-
 # HTML_Scraping_demo_jc.py (has a fair bit of info for bs4 and other bits and bobs)
 
 # pandas_test.py (has a lot of info on pandas)
 
 # cmnd shift p shows all stuff you can do in sublime/vis studio
-
-
 
 ##################################################
 # Jupyter notebook stuff
@@ -74,7 +71,7 @@ git init (initiates the connection)
 pull, add, commit, push. (in order.. use status to see what the new things are you need to upload
 	then add the new/updated files, commit -m 'then comment', finally push them to'origin master')
 
-status ( shows the status of files that are new or have a chnage..)
+status ( shows the status of files that are new or have a change..)
 
 
 ##################################################
@@ -159,6 +156,7 @@ df_interest_over_time_A.head()
 pytrend.build_payload(kw_list=driver_list[5:5+diff])
 df_interest_over_time_B = pytrend.interest_over_time().drop(['isPartial'],axis=1)
 df_interest_over_time_B.head()
+
 # Join them instead of transpose and append
 # df_joined = pd.merge(df_interest_over_time_A, df_interest_over_time_B, left_on='colname', right_on='colname', how='inner')
 df_joined = pd.merge(df_interest_over_time_A, df_interest_over_time_B, left_index=True, right_index=True, how='inner')
