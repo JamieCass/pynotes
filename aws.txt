@@ -6,9 +6,7 @@ start with downloading your keys from AWS and save them in folder,(i use a keys 
 
 MAKE SURE you make permissions private using... chmod 400 (filename and destination if needed)
 
------------------------------------------------------------------
-
-to connect to AWS..
+------------------ connect to AWS ------------------
 
 ssh -i (key file, and destination if you aren't there already) -vv(prints out verbose's)
 ec2-user@(the public DNS info for instance)
@@ -18,50 +16,50 @@ ubuntu@(public DNS info for instance)
 
 ------------------ install python/jupyter ------------------
 
--sudo apt-get update
--sudo apt install python3-pip
--pip3 install jupyter
--sudo apt-get install default-jre (install java) this is needed for scala, scala is needed for spark
--sudo apt-get install scala
--pip3 install py4j (this lets python connect with java)
+sudo apt-get update
+sudo apt install python3-pip
+pip3 install jupyter
+sudo apt-get install default-jre (install java) this is needed for scala, scala is needed for spark
+sudo apt-get install scala
+pip3 install py4j (this lets python connect with java)
 
 ------------------ download spark -------------------- (you may have to change version)
 
--wget https://archive.apache.org/dist/spark/spark-3.0.0/spark-3.0.0-bin-hadoop2.7.tgz
+wget https://archive.apache.org/dist/spark/spark-3.0.0/spark-3.0.0-bin-hadoop2.7.tgz
 
 --- unzip and install ---
--sudo tar -zxvf spark-3.0.0-bin-hadoop2.7.tgz
+sudo tar -zxvf spark-3.0.0-bin-hadoop2.7.tgz
 
--cd (tab complete)
--pwd (to see youre in the right place.. This is important for later on in Jupyter)
--~/spark-3.0.0-bin-hadoop2.7
--cd (back to home directory)
+cd (tab complete)
+pwd (to see youre in the right place.. This is important for later on in Jupyter)
+~/spark-3.0.0-bin-hadoop2.7
+cd (back to home directory)
 
--pip3 install findspark (this helps us find spark in jupyter notebook)
--jupyter notebook --generate-config
+pip3 install findspark (this helps us find spark in jupyter notebook)
+jupyter notebook --generate-config
 (vvvvv -if the line above doesnt work try the line below first- vvvvv)
--sudo apt-get install jupyter-notebook
+sudo apt-get install jupyter-notebook
 
 -------------------------- make a certs folder with some certs for the jupyter notebook --------------------------
 
--cd
--mkdir certs
--cd certs
--sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+cd
+mkdir certs
+cd certs
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
 FILL IN DETAILS
--cd ~/.jupyter/
--vi jupyter_notebook_config.py
+cd ~/.jupyter/
+vi jupyter_notebook_config.py
 
 -------------------------- write jupyter config file --------------------------
 
 type 'i' to start inserting text
--c = get_config()
--c.NotebookApp.certfile = u'/home/ubuntu/certs/mycert.pem'
--c.NotebookApp.ip = '*'
--c.NotebookApp.open_browser = False
+c = get_config()
+c.NotebookApp.certfile = u'/home/ubuntu/certs/mycert.pem'
+c.NotebookApp.ip = '*'
+c.NotebookApp.open_browser = False
 c.NotebookApp.port = 8888
 press esc
--:wq!
+:wq!
 
 you should be able to open up Jupyter notebook after this.
 
@@ -73,5 +71,10 @@ sudo chown -R $USER /home/
 sudo chown -R $USER ~/.local/share/jupyter/
 
 something doesnt work.. cant connect kernels (will add solution when figured out)
+
+-------------------------- importing pyspark --------------------------
+
+import findspark
+findspark init('/home/ubuntu/spark-3.0.0-bin-hadoop2.7')
 
 -------------------------------------------------------------------------------------------
