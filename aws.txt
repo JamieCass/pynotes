@@ -65,16 +65,14 @@ you should be able to open up Jupyter notebook after this.
 
 just change the 'localhost' part to the DNS info for instance
 
-if it doesnt work at first, do these steps below..
+if it doesnt work at first, do these steps below..(I've had to do this every time I've set up the instance so far)
 sudo chown -R $USER /home/
-
 sudo chown -R $USER ~/.local/share/jupyter/
-
-something doesnt work.. cant connect kernels (will add solution when figured out)
 
 -------------------------- importing pyspark --------------------------
 
 import findspark
 findspark init('/home/ubuntu/spark-3.0.0-bin-hadoop2.7')
+import pyspark 
 
 -------------------------------------------------------------------------------------------

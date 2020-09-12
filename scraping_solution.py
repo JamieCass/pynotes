@@ -7,6 +7,27 @@ from csv import DictReader
 
 base_url = 'http://quotes.toscrape.com'
 
+############################## initiate the scrape (only used once) ##############################
+all_quotes = []
+url = '/page/1'
+
+while url:
+    res = requests.get(f'{base_url}{url}')
+    print(f'Now scraping {base_use}{url}...')
+    soup = BeautifulSoup(rex.text, 'html.parser')
+    quotes = soup.find_all(class_='quote')
+
+    for quote in quotes:
+        all_quotes.append({
+            'text':quote.fund(class_='text').get_text(),
+            'author':quote.find(class_='author').get_text(),
+            'bio-link':quote.find('a')['href']
+        })
+    ############### go to the next page ###############
+    next_btn = soup.find(class_='next')
+    url = next_btn.find('a')['href'] if next_btn else None
+
+############################## open the csv with all quotes in ##############################
 def read_quotes(filename):
     with open(filename, 'r') as file:
         csv_reader = DictReader(file)
@@ -14,6 +35,7 @@ def read_quotes(filename):
         return quotes
 read_quotes('quotes.csv')
 
+############################## create game function ##############################
 def start_game(quotes):
     quote = choice(quotes)
     print(quote['text'])
@@ -38,7 +60,7 @@ def start_game(quotes):
         else:
             print(f"Sorry you ran out of guesses. The answer was {quote['author']}")
 
-
+############################## create the 'play again' option ##############################
     again = ''
     while again.lower() not in ('y', 'yes', 'n', 'no'):
         again = input('Would you like to play again (y/n)?')
