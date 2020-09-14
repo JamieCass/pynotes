@@ -14,7 +14,7 @@ url = '/page/1'
 while url:
     res = requests.get(f'{base_url}{url}')
     print(f'Now scraping {base_use}{url}...')
-    soup = BeautifulSoup(rex.text, 'html.parser')
+    soup = BeautifulSoup(res.text, 'html.parser')
     quotes = soup.find_all(class_='quote')
 
     for quote in quotes:
@@ -27,6 +27,7 @@ while url:
     next_btn = soup.find(class_='next')
     url = next_btn.find('a')['href'] if next_btn else None
 
+
 ############################## open the csv with all quotes in ##############################
 def read_quotes(filename):
     with open(filename, 'r') as file:
@@ -34,6 +35,7 @@ def read_quotes(filename):
         quotes = list(csv_reader)
         return quotes
 read_quotes('quotes.csv')
+
 
 ############################## create game function ##############################
 def start_game(quotes):
@@ -59,6 +61,7 @@ def start_game(quotes):
             print(f"Here's a hint: The authors last name starts with {last_initial}")
         else:
             print(f"Sorry you ran out of guesses. The answer was {quote['author']}")
+
 
 ############################## create the 'play again' option ##############################
     again = ''
