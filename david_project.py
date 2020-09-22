@@ -9,6 +9,7 @@ from csv import writer
 from csv import reader
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 ############################## all book urls ##############################
 
@@ -25,8 +26,9 @@ while url:
     books = soup.find_all('article')
 
     for book in books:
-        all_books.append(book_link)
         book_link = book.find('a')['href']
+        all_books.append(book_link)
+
 
     ############### go to the next page ###############
     next_btn = soup.find(class_='next')
@@ -48,6 +50,7 @@ def book_page_open(site):
 
     b_page = requests.get(site)
     bsoup = BeautifulSoup(b_page.text, 'html.parser')
+
     title = bsoup.find('h1').text
 
 
@@ -78,36 +81,62 @@ def book_page_open(site):
     src = bsoup.find('img')
     img_src = next(iter(src.attrs.values())).replace('../..','')
 
-    sleep(0.5)
+    cat = bsoup.find_all(class_='page_inner')
+    for x in cat:
+        bread = x.find(class_='breadcrumb')
+    category = bread.find_all('li')[2].text.replace('\n','')
 
-    return title, price, rating, upc, stock, desc, img_src
+    # sleep(0.5)
+
+    return title, price, rating, upc, stock, desc, img_src, category
 
 
 all_book_info = []
 
 for i in all_books:
     print('current_page:', base_url,i)
-    title, price, rating, upc, stock, desc, img_src  = book_page_open(urljoin(base_url, i))
-    all_book_info.append([upc, title, price, rating, stock, img_src, desc])
-    # next_b_page = urljoin(book_page, i
+    title, price, rating, upc, stock, desc, img_src, category  = book_page_open(urljoin(base_url, i))
+    all_book_info.append([upc, title, price, rating, stock, img_src, desc, category])
 
-len(all_book_info)
-all_book_info[160]
-all_info_df = pd.DataFrame(all_book_info, columns=['UPC', 'Title', 'Price', 'Rating', 'Stock', "Img_src", 'Description'])
+len(book_cat)
+all_book_info[0]
+all_info_df = pd.DataFrame(all_book_info, columns=['UPC', 'Title', 'Price', 'Rating', 'Stock', "Img_src", 'Description', 'Category'])
 
-all_info_df.to_csv('/Users/jamie/Coding/pynotes/book_all_info.csv')
-
-main_df.to_csv('/Users/jamie/Coding/pynotes/book_main.csv')
+main_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_main.csv')
+main_df = main_df.drop(main_df.columns[0], axis=1)
 main_df
+
+
 # top 5 with a rating of 5
 main_df['Title'][main_df['Rating'] > 4]
+# top 5 with all the information
+main_df[main_df['Rating'] == 1]
 
-utimg_df.to_csv('/Users/jamie/Coding/pynotes/book_img.csv')
+main_df['Price'][main_df['Rating'] == 5].mean()
+main_df['Price'][main_df['Rating'] == 4].mean()
+main_df['Price'][main_df['Rating'] == 3].mean()
+main_df['Price'][main_df['Rating'] == 2].mean()
+main_df['Price'][main_df['Rating'] == 1].mean()
 
-desc_df.to_csv('/Users/jamie/Coding/pynotes/book_desc.csv')
+sns.regplot(x="Rating", y="Price", data=main_df)
+
+sns.boxplot(x="Rating", y="Price", data=main_df)
+
+rating_price_df = main_df[['Rating', 'Price']]
+rating_price_df.groupby('Rating', as_index=False).mean()
+
+rating_cat_price = main_df[['Rating', 'Category', 'Price']]
+rating_cat_price.groupby(['Rating', 'Category'], as_index=False).mean()
+
+
+img_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_img.csv')
+img_df
+desc_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_desc.csv')
+desc_df = desc_df.drop(desc_df.columns[0], axis=1)
+desc_df
 
 ######################################################## TEST ########################################################
-test = urljoin(base_url, all_books[160])
+test = urljoin(base_url, all_books[178])
 res1 = requests.get(test)
 soup1 = BeautifulSoup(res1.text, 'html.parser')
 
@@ -164,3 +193,15 @@ src = soup1.find('img')
 img_src = next(iter(src.attrs.values())).replace('../..','')
 img_src
 dir(src)
+
+################# CATEGORY #################
+cat = soup1.find_all(class_='page_inner')
+
+trial = [x.find(class_='breadcrumb') for x in soup1.find_all(class_='page_inner')]
+type(trial)
+
+for x in cat:
+    bread = x.find(class_='breadcrumb')
+
+category = bread.find_all('li')[2].text.replace('\n','')
+category
