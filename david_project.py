@@ -98,9 +98,9 @@ for i in all_books:
     title, price, rating, upc, stock, desc, img_src, category  = book_page_open(urljoin(base_url, i))
     all_book_info.append([upc, title, price, rating, stock, img_src, desc, category])
 
-len(book_cat)
-all_book_info[0]
-all_info_df = pd.DataFrame(all_book_info, columns=['UPC', 'Title', 'Price', 'Rating', 'Stock', "Img_src", 'Description', 'Category'])
+
+######################################################## TEST ########################################################
+
 
 main_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_main.csv')
 main_df = main_df.drop(main_df.columns[0], axis=1)
@@ -128,80 +128,18 @@ rating_price_df.groupby('Rating', as_index=False).mean()
 rating_cat_price = main_df[['Rating', 'Category', 'Price']]
 rating_cat_price.groupby(['Rating', 'Category'], as_index=False).mean()
 
+sns.regplot(x='Rating' > 4, y = 'Category', data = main_df)
 
-img_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_img.csv')
-img_df
-desc_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_desc.csv')
-desc_df = desc_df.drop(desc_df.columns[0], axis=1)
-desc_df
+for n in main_df['Category']:
+    print(n)
 
-######################################################## TEST ########################################################
-test = urljoin(base_url, all_books[178])
-res1 = requests.get(test)
-soup1 = BeautifulSoup(res1.text, 'html.parser')
+set(main_df['Category'])
 
-################# TITLE #################
-title = soup1.find('h1').text
-title
+main_df[((main_df['Rating'] >= 5) & (main_df['Price'] < 20.00))]
 
-################# PRICE #################
-price = soup1.find(class_='price_color').text
-new_price = float(price.replace('£','').replace('Â',''))
-new_price
 
-################# RATING #################
-ratings = {'Zero': 0, 'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5}
-rate = soup1.select('.star-rating')[0]
-rating_word = rate.get_attribute_list('class')[-1]
-rating = ratings[rating_word]
-rating
-
-################# UPC #################
-table = soup1.find(class_= 'table table-striped')
-upc = table.find('td').get_text()
-upc
-
-################# STOCK #################
-stock = soup1.find(class_='instock availability').text
-stock
-stock[stock.find('(')+1:stock.find('available')-1]
-
-################# DESCRIPTION #################
-desc = soup1.find(class_='product_page').find_all('p')
-desc = [x for x in desc if x.attrs=={}]
-desc = desc[0].text
-desc
-if len(desc)==0:
-    desc = 'No review'
-else:
-    desc = desc[0].text
-
-for x in desc:
-    # if x.attrs=={}:
-
-        print(x.attrs, ' '.join(x.text.split()))
-        print('-'*40)
-dir(desc[0])
-
-type(desc)
-len(desc)
-description = desc.text
-desc
-
-################# IMAGE SRC #################
-src = soup1.find('img')
-img_src = next(iter(src.attrs.values())).replace('../..','')
-img_src
-dir(src)
-
-################# CATEGORY #################
-cat = soup1.find_all(class_='page_inner')
-
-trial = [x.find(class_='breadcrumb') for x in soup1.find_all(class_='page_inner')]
-type(trial)
-
-for x in cat:
-    bread = x.find(class_='breadcrumb')
-
-category = bread.find_all('li')[2].text.replace('\n','')
-category
+# img_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_img.csv')
+# img_df
+# desc_df = pd.read_csv('/Users/jamie/Coding/pynotes/book_desc.csv')
+# desc_df = desc_df.drop(desc_df.columns[0], axis=1)
+# desc_df
