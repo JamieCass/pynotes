@@ -109,8 +109,6 @@ main_df
 # top 5 with a rating of 5
 main_df['Title'][main_df['Rating'] > 4]
 # top 5 with all the information
-main_df[main_df['Rating'] == 1]
-
 main_df['Price'][main_df['Rating'] == 5].mean()
 
 sns.regplot(x="Rating", y="Price", data=main_df)
@@ -125,14 +123,19 @@ cat_mean_df = rating_cat_price.groupby('Category', as_index=True).mean()
 cat_mean_df
 sns.regplot(x='Rating', y='Price', data=cat_mean_df)
 
-# graph showing average priuce and rating for each category
+# Line graph to show average rating and prices
+sns.lineplot(x='Rating', y='Price', data=cat_mean_df)
+
+
+
+# graph showing average price and rating for each category
 cat_mean_df.plot(xlabel='Category',title='Category vs Price & Rating', figsize=(20,10), kind='bar')
 
 
 set(main_df['Category'])
 
 
-
+cat_mean_df[(cat_mean_df['Rating']>=3)]
 
 main_df[((main_df['Rating'] >= 4) & (main_df['Price'] > 20.00))]
 
