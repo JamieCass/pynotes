@@ -113,7 +113,7 @@ main_df['Price'][main_df['Rating'] == 5].mean()
 
 main_df[main_df['Rating'] == 5]
 
-main_df.sort_values('Stock').tail(20)
+main_df.sort_values('Stock', ascending = False).head(10)
 
 
 
