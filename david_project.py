@@ -114,8 +114,10 @@ main_df['Price'][main_df['Rating'] == 5].mean()
 main_df[main_df['Rating'] == 5]
 
 main_df.sort_values('Stock', ascending = False).head(10)
-
-
+testerdf = main_df.groupby(['Title', 'Price'])
+for title, price, rating in testerdf:
+    print(title)
+    print(price)
 
 sns.regplot(x="Rating", y="Price", data=main_df)
 
