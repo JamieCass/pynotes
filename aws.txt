@@ -21,6 +21,7 @@ sudo apt install python3-pip
 pip3 install jupyter
 sudo apt-get install default-jre (install java) this is needed for scala, scala is needed for spark
 sudo apt-get install scala
+sudo apt-get install jupyter-notebook
 pip3 install py4j (this lets python connect with java)
 
 ------------------ download spark -------------------- (you may have to change version)
@@ -37,8 +38,6 @@ cd (back to home directory)
 
 pip3 install findspark (this helps us find spark in jupyter notebook)
 jupyter notebook --generate-config
-(vvvvv -if the line above doesnt work try the line below first- vvvvv)
-sudo apt-get install jupyter-notebook
 
 -------------------------- make a certs folder with some certs for the jupyter notebook --------------------------
 
@@ -72,7 +71,7 @@ sudo chown -R $USER ~/.local/share/jupyter/
 -------------------------- importing pyspark --------------------------
 
 import findspark
-findspark init('/home/ubuntu/spark-3.0.0-bin-hadoop2.7')
-import pyspark 
+findspark.init('/home/ubuntu/spark-3.0.0-bin-hadoop2.7')
+import pyspark
 
 -------------------------------------------------------------------------------------------

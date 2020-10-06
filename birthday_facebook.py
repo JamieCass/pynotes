@@ -52,7 +52,7 @@ browser.get('https://www.facebook.com/events/birthdays/')
 
 feed = 'Happy Birthday!'
 
-element = browser.find_elements_by_xpath('//*[@class ="enter_submit\ uiTextareaNoResize uiTextareaAutogrow uiStreamInlineTextarea\ inlineReplyTextArea mentionsTextarea textInput"]')
+element = browser.find_elements_by_xpath('//*[@id="mount_0_0"]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div/div')
 
 cnt = 0
 
