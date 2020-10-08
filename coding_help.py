@@ -45,8 +45,9 @@ jt -t 'theme' # run in terminal, then select a theme
 # Use this to make jupyter notebok wider
 
 from IPython.core.display import display, HTML
-display(HTML("<style>.container { width:90% !important; }</style>"))
-
+display(HTML("<style>.container { width:100% !important; }</style>"))
+display(HTML("<style>.output_result { max-width:100% !important; }</style>"))
+display(HTML("<style>.prompt { display:none !important; }</style>"))
 
 
 
