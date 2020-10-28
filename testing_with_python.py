@@ -41,7 +41,7 @@
 # Raises an 'AssertionError' if expression is falsy
 # Accepts an optional error message as a second argument
 # AssertionError will be raised if the assert isnt true
-# If a python file is rane with the '-O' flag, assertions are ignored!!!!
+# If a python file is ran with the '-O' flag, assertions are ignored!!!!
 #e.g
 def add_positive_numbers(x,y):
     assert x > 0 and y > 0, 'Both numbers must be positive!' #if both numbers arent positive, this message will come up.
@@ -206,7 +206,7 @@ class SomeTest(unittest.TestCase):
         # setUp runs before this test
         # tearDown will run after
         pass
-        
+
     def tearDown(self): # This will run after each test function.
         # teardwon code goes here
         pass

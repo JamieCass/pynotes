@@ -74,6 +74,8 @@ pull, add, commit, push. (in order.. use status to see what the new things are y
 
 status ( shows the status of files that are new or have a change..)
 
+# for markdown files, CTRL + Shift + M will show a preview of the file.
+
 
 ##################################################
 # Date and Time

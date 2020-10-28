@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 
 # read in the news file
 df = pd.read_csv('news.csv')
-df.head()
+df
 
 # get the labels saying whats fake and real
 labels = df.label
