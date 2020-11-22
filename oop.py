@@ -37,7 +37,7 @@ boat = Vehicle()
 # Abstraction and Encapsulation
 ##########################################
 
-#Encapsulate - pretty much means break it down into smaller arts.
+#Encapsulate - pretty much means break it down into smaller parts.
 #'the grouping of public and private attributes and methods into progammatic class making abstaction possible'
 
 
@@ -98,7 +98,7 @@ boat = Vehicle()
 # A User class with 3 attributes but no methods (aside from __init__)
 class User:
 	def __init__(self, first, last, age):
-		self.first = first #this is setting the first name attribute to 'Joe' for ser 1 and 'blanca' for user 2.
+		self.first = first #this is setting the first name attribute to 'Joe' for user 1 and 'blanca' for user 2.
 		self.last = last  #same as above but for the last name.
 		self.age = age  #again the same thing as above.
 
@@ -504,7 +504,7 @@ print(tom.birthday()) #Happy 90th birthday
 #The __repr__ method
 ##########################################
 
-#One of several ways to prvide a nicer string representation.
+#One of several ways to provide a nicer string representation.
 
 
 class User:
