@@ -68,6 +68,7 @@ if it doesnt work at first, do these steps below..(I've had to do this every tim
 sudo chown -R $USER /home/
 sudo chown -R $USER ~/.local/share/jupyter/
 
+
 -------------------------- importing pyspark --------------------------
 
 import findspark
