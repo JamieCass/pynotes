@@ -149,6 +149,8 @@ git diff origin..master > my.patch  # pipes a diff into my.patch
 # get diffstat of uncommitted work
 git diff --stat HEAD
 
+# to reset to a different commit stage (helpful when you have files waiting to be commit that are too big and have been deleted)
+git reset --hard 6c100ed6f227b1... (the commit stage number thing)
 
 
 
